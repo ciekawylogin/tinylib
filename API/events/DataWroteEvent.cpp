@@ -1,5 +1,6 @@
 #include "DataWroteEvent.h"
 
-DataWroteEvent::DataWroteEvent()
+DataWroteEvent::DataWroteEvent(std::string message):
+    SuccessEvent(message)
 {
 }

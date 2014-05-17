@@ -1,5 +1,6 @@
 #include "WritingErrorEvent.h"
 
-WritingErrorEvent::WritingErrorEvent()
+WritingErrorEvent::WritingErrorEvent(std::string message):
+    FailureEvent(message)
 {
 }

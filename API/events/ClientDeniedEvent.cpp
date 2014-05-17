@@ -1,5 +1,6 @@
 #include "ClientDeniedEvent.h"
 
-ClientDeniedEvent::ClientDeniedEvent()
+ClientDeniedEvent::ClientDeniedEvent(std::string message):
+    Event(message)
 {
 }

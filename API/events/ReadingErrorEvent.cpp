@@ -1,5 +1,6 @@
 #include "ReadingErrorEvent.h"
 
-ReadingErrorEvent::ReadingErrorEvent()
+ReadingErrorEvent::ReadingErrorEvent(std::string message):
+    FailureEvent(message)
 {
 }

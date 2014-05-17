@@ -1,5 +1,6 @@
 #include "DataReadEvent.h"
 
-DataReadEvent::DataReadEvent()
+DataReadEvent::DataReadEvent(std::string message):
+    SuccessEvent(message)
 {
 }

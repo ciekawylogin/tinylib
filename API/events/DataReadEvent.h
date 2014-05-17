@@ -6,7 +6,7 @@
 class DataReadEvent : public SuccessEvent
 {
 public:
-    DataReadEvent();
+    DataReadEvent(std::string);
 };
 
 #endif // DATAREADEVENT_H

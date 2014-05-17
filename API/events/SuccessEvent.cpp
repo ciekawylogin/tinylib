@@ -1,5 +1,6 @@
 #include "SuccessEvent.h"
 
-SuccessEvent::SuccessEvent()
+SuccessEvent::SuccessEvent(std::string message):
+    Event(message)
 {
 }

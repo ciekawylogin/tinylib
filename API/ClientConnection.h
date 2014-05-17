@@ -3,7 +3,7 @@
 
 #include "Connection.h"
 
-class ClientConnection : public Connection
+class ClientConnection: public Connection
 {
 public:
     ClientConnection();

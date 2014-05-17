@@ -1,5 +1,6 @@
 #include "ConnectedToServerEvent.h"
 
-ConnectedToServerEvent::ConnectedToServerEvent()
+ConnectedToServerEvent::ConnectedToServerEvent(std::string message):
+    Event(message)
 {
 }

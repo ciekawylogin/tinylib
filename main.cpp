@@ -16,9 +16,11 @@
 #include "API/events/ReadingErrorEvent.h"
 
 #include "API/EventListener.h"
+#include "API/events/DataReadEvent.h"
 
-void wyslijDane(std::string str, Connection conn)
+void wyslijDane(Connection conn)
 {
+    std::string str = "Hello, world!";
     conn.writeAsync(str.c_str(), str.size(),
     [](Event event) // success
     {
@@ -30,8 +32,24 @@ void wyslijDane(std::string str, Connection conn)
     });
 }
 
+void odbierzDane(Connection conn)
+{
+    const int max_length = 128;
+    char buffer[max_length];
+    conn.readAsync(buffer, max_length,
+    [&buffer](Event event) // success
+    {
+        std::cout << "Odebrano dane: " << buffer << std::endl;
+    },
+    [](Event event) // error
+    {
+        std::cout << "Blad odbierania: "<< event.getMessage() << std::endl;
+    });
+}
+
 int main()
 {
-    std::cout << "Hello world!!!!\n";
+    Server server;
+
     return 0;
 }

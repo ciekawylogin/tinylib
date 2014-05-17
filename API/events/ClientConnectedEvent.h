@@ -6,7 +6,7 @@
 class ClientConnectedEvent : public Event
 {
 public:
-    ClientConnectedEvent();
+    ClientConnectedEvent(std::string);
 };
 
 #endif // CLIENTCONNECTEDEVENT_H

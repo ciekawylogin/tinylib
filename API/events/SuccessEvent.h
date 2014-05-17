@@ -6,7 +6,7 @@
 class SuccessEvent : public Event
 {
 public:
-    SuccessEvent();
+    SuccessEvent(std::string);
 };
 
 #endif // SUCCESSEVENT_H

@@ -1,5 +1,6 @@
 #include "FailureEvent.h"
 
-FailureEvent::FailureEvent()
+FailureEvent::FailureEvent(std::string message):
+    Event(message)
 {
 }

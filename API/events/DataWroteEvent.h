@@ -6,7 +6,7 @@
 class DataWroteEvent : public SuccessEvent
 {
 public:
-    DataWroteEvent();
+    DataWroteEvent(std::string);
 };
 
 #endif // DATAWROTEEVENT_H

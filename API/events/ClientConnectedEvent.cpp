@@ -1,5 +1,6 @@
 #include "ClientConnectedEvent.h"
 
-ClientConnectedEvent::ClientConnectedEvent()
+ClientConnectedEvent::ClientConnectedEvent(std::string message):
+    Event(message)
 {
 }

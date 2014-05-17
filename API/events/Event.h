@@ -5,9 +5,10 @@
 
 class Event
 {
+    std::string message;
 public:
-    Event();
-    virtual std::string getMessage();
+    Event(std::string);
+    std::string getMessage();
 };
 
 #endif // EVENT_H

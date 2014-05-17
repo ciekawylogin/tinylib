@@ -6,7 +6,7 @@
 class ClientDeniedEvent : public Event
 {
 public:
-    ClientDeniedEvent();
+    ClientDeniedEvent(std::string);
 };
 
 #endif // CLIENTDENIEDEVENT_H
