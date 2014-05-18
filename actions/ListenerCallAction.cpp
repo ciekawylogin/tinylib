@@ -1,5 +1,11 @@
 #include "ListenerCallAction.h"
 
-ListenerCallAction::ListenerCallAction()
+ListenerCallAction::ListenerCallAction(EventListener listener):
+    listener(listener)
 {
+}
+
+void ListenerCallAction::perform()
+{
+    listener();
 }
