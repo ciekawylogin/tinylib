@@ -2,11 +2,8 @@
 #define WRITINGTHREAD_H
 
 #include "WorkingThread.h"
+#include <actions/WritingAction.h>
 
-class WritingThread: public WorkingThread
-{
-public:
-    WritingThread();
-};
+typedef WorkingThread<WritingAction> WritingThread;
 
 #endif // WRITINGTHREAD_H

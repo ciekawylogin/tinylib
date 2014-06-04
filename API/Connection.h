@@ -6,6 +6,9 @@
 #include "../sockets/Socket.h"
 
 #include <thread>
+#include <threads/ReadingThread.h>
+#include <threads/WritingThread.h>
+#include <threads/ListenerCallThread.h>
 
 /**
  * @brief Klasa reprezentująca połączenie z innym komputerem (adresem IP)
@@ -14,8 +17,15 @@
  */
 class Connection
 {
-    /// Wątek, który zarządza tym połączeniem
-    std::thread thread;
+    /// Wątek do czytania asynchronicznego
+    ReadingThread reading_thread;
+
+    /// Wątek do pisania asynchronicznego
+    WritingThread writing_thread;
+
+    /// Wątek do wołania listenerów
+    ListenerCallThread listener_call_thread;
+
     /// Gniazdo, za pomocą którego
     Socket socket;
 
@@ -40,7 +50,7 @@ public:
      *        naprawienia przez bibliotekę)
      * @return Obiekt, który pozwala zarządzać operacją wysyłania (patrz opis klasy AsyncOperation)
      */
-    AsyncOperation writeAsync(const char *data, int dataSize, EventListener success, EventListener failure);
+    AsyncOperation writeAsync(char *data, int dataSize, EventListener success, EventListener failure);
 
     /**
      * @brief readAsync Zleca odebranie danych w trybie asynchronicznym

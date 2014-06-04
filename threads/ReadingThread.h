@@ -2,12 +2,8 @@
 #define READINGTHREAD_H
 
 #include "WorkingThread.h"
+#include <actions/ReadingAction.h>
 
-class ReadingThread: public WorkingThread
-{
-public:
-    ReadingThread();
-    int addOperation();
-};
+typedef WorkingThread<ReadingAction> ReadingThread;
 
 #endif // READINGTHREAD_H

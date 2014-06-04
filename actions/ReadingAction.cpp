@@ -3,3 +3,7 @@
 ReadingAction::ReadingAction()
 {
 }
+
+void ReadingAction::perform()
+{
+}

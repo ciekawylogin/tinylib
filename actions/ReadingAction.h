@@ -7,6 +7,8 @@ class ReadingAction : public Action
 {
 public:
     ReadingAction();
+
+    void perform();
 };
 
 #endif // READINGACTION_H

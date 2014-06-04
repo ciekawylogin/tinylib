@@ -7,6 +7,8 @@ class WritingAction : public Action
 {
 public:
     WritingAction();
+
+    void perform();
 };
 
 #endif // WRITINGACTION_H

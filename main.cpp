@@ -21,7 +21,7 @@
 void wyslijDane(Connection conn)
 {
     std::string str = "Hello, world!";
-    conn.writeAsync(str.c_str(), str.size(),
+    conn.writeAsync((char *)str.c_str(), str.size(),
     [](Event event) // success
     {
         std::cout << "Pomyslnie wyslano dane!" << std::endl;

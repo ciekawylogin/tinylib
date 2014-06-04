@@ -25,7 +25,8 @@ SOURCES += \
     actions/Action.cpp \
     actions/WritingAction.cpp \
     actions/ReadingAction.cpp \
-    actions/ListenerCallAction.cpp
+    actions/ListenerCallAction.cpp \
+    threads/ListenerCallThread.cpp
 
 OTHER_FILES += \
     README.md
@@ -58,6 +59,7 @@ HEADERS += \
     actions/Action.h \
     actions/WritingAction.h \
     actions/ReadingAction.h \
-    actions/ListenerCallAction.h
+    actions/ListenerCallAction.h \
+    threads/ListenerCallThread.h
 
 CONFIG += c++11

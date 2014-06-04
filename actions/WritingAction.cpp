@@ -3,3 +3,7 @@
 WritingAction::WritingAction()
 {
 }
+
+void WritingAction::perform()
+{
+}

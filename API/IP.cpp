@@ -1,8 +1,7 @@
 #include "IP.h"
 #include <stdexcept>
 
-IP::IP(std::string IP_str):
-    address{0}
+IP::IP(std::string IP_str)
 {
     size_t index = 0;
     for(auto c: IP_str)
