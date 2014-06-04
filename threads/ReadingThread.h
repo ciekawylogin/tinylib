@@ -2,7 +2,7 @@
 #define READINGTHREAD_H
 
 #include "WorkingThread.h"
-#include <actions/ReadingAction.h>
+#include "../actions/ReadingAction.h"
 
 typedef WorkingThread<ReadingAction> ReadingThread;
 

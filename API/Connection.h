@@ -6,9 +6,9 @@
 #include "../sockets/Socket.h"
 
 #include <thread>
-#include <threads/ReadingThread.h>
-#include <threads/WritingThread.h>
-#include <threads/ListenerCallThread.h>
+#include "../threads/ReadingThread.h"
+#include "../threads/WritingThread.h"
+#include "../threads/ListenerCallThread.h"
 
 /**
  * @brief Klasa reprezentująca połączenie z innym komputerem (adresem IP)

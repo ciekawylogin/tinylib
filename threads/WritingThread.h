@@ -2,7 +2,7 @@
 #define WRITINGTHREAD_H
 
 #include "WorkingThread.h"
-#include <actions/WritingAction.h>
+#include "../actions/WritingAction.h"
 
 typedef WorkingThread<WritingAction> WritingThread;
 

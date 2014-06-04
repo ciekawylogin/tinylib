@@ -1,7 +1,7 @@
 #ifndef ASYNCOPERATION_H
 #define ASYNCOPERATION_H
 
-#include <actions/Action.h>
+#include "../actions/Action.h"
 
 /**
  * @brief Klasa, której obiekty zarządzają operacjami asynchronicznymi
