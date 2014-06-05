@@ -18,7 +18,7 @@ class Socket
 public:
     Socket();
     void bind();
-    int listen();
+    void listen();
     int connect();
     int accept(EventListener);
     void setPort(int);

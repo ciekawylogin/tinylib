@@ -22,3 +22,9 @@ void Socket::bind()
     if(::bind(socketDescriptor, (struct sockaddr*)&(name), sizeof(name))!=0)
         throw std::runtime_error("Bind() nie powiodl sie.\n");
 }
+
+void Socket::listen()
+{
+    if(::listen(socketDescriptor, 128)!=0)
+        throw std::runtime_error("Blad \"stowarzyszenia\" (listen()).\n");
+}
