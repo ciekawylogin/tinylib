@@ -19,12 +19,12 @@ public:
     Socket();
     void bind();
     void listen();
-    int connect();
+    void connect();
     int accept(EventListener);
     void setPort(int);
 private:
     int socketDescriptor;
-    short int port;
+    int port;
 };
 
 #endif // SOCKET_H

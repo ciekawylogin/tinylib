@@ -9,7 +9,7 @@ Socket::Socket()
 
 void Socket::setPort(int port)
 {
-    this->port=(short int)port;
+    this->port=port;
 }
 
 void Socket::bind()
@@ -17,9 +17,9 @@ void Socket::bind()
     struct sockaddr_in name;
     name.sin_family = AF_INET;
     name.sin_addr.s_addr = htonl(INADDR_ANY);
-    name.sin_port = htons(port);
+    name.sin_port = htons((short)port);
 
-    if(::bind(socketDescriptor, (struct sockaddr*)&(name), sizeof(name))!=0)
+    if(::bind(socketDescriptor, (struct sockaddr*)&name, sizeof(name))!=0)
         throw std::runtime_error("Bind() nie powiodl sie.\n");
 }
 
@@ -28,3 +28,16 @@ void Socket::listen()
     if(::listen(socketDescriptor, 128)!=0)
         throw std::runtime_error("Blad \"stowarzyszenia\" (listen()).\n");
 }
+
+void Socket::connect(int addr, int port)
+{
+    struct sockaddr_in name;
+    name.sin_family = AF_INET;
+    name.sin_addr.s_addr = htonl(addr);
+    name.sin_port = htons((short)port);
+
+    if(::connect(socketDescriptor,(struct sockaddr*)&name, sizeof(name))!=0)
+        throw std::runtime_error("Nie mozna zestawic polaczenia z dana maszyna.\n");
+}
+
+
