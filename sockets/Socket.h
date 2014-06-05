@@ -1,6 +1,12 @@
 #ifndef SOCKET_H
 #define SOCKET_H
 
+#include "API/EventListener.h"
+#include "sys/socket.h"
+#include "sys/types.h"
+#include <netdb.h>
+#include <netinet/in.h>
+
 /**
  * @brief Zapewnia abstrakcję dla gniazd TCP, opakowując gniazda linuksowe bądź windowsowe.
  *
@@ -11,6 +17,14 @@ class Socket
 {
 public:
     Socket();
+    void bind();
+    int listen();
+    int connect();
+    int accept(EventListener);
+    void setPort(int);
+private:
+    int socketDescriptor;
+    short int port;
 };
 
 #endif // SOCKET_H
