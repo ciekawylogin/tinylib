@@ -16,9 +16,9 @@
  */
 class AsyncOperation
 {
-    PAction action;
+    Action &action;
 public:
-    AsyncOperation();
+    AsyncOperation(Action &action);
     /**
      * @brief Informuje, czy operacja została zakończona.
      */

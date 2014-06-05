@@ -2,15 +2,20 @@
 #define SERVER_H
 
 #include "EventListener.h"
+#include <sockets/Socket.h>
+#include <thread>
 
 class Server
 {
     EventListener listener;
+    Socket socket;
+
 public:
     Server();
 
     void setConnectionListener(EventListener);
-    void listen();
+    void listenSync();
+    void listenAsync();
 
 };
 

@@ -9,6 +9,7 @@
  */
 class Socket
 {
+
 public:
     Socket();
 };

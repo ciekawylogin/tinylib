@@ -38,7 +38,7 @@ public:
         cond.notify_one();
     }
 
-    // przeciążenie pozwalające odrobinkę poprawić wydajność
+    // przeciążenie pozwalające poprawić wydajność (podobno)
     // && = r-value
     void push(Data&& item)
     {

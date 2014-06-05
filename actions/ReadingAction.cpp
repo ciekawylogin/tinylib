@@ -1,6 +1,6 @@
 #include "ReadingAction.h"
 
-ReadingAction::ReadingAction()
+ReadingAction::ReadingAction(char *data, int dataSize, EventListener success, EventListener failure)
 {
 }
 

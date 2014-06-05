@@ -49,7 +49,7 @@ void odbierzDane(Connection conn)
 
 int main()
 {
-    Server server;
+    [](){}();
 
     return 0;
 }

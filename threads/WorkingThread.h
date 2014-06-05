@@ -28,10 +28,15 @@ public:
         {
             while(true)
             {
-                PAction action = queue.pop(); // <- w tym miejscu sie zawiesi
-                if(!action->isCancelled())
+                Action action = queue.pop(); // <- w tym miejscu sie zawiesi
+                if(!action.isCancelled())
                 {
-                    action->perform();
+                    action.perform();
+                    std::cout << "action performed" << std::endl;
+                }
+                else
+                {
+                    std::cout << "action cancelled" << std::endl;
                 }
             }
         });
@@ -39,6 +44,11 @@ public:
         // przerwano
 
         std::cerr << "Przerwano wykonanie watku" << std::endl;
+    }
+
+    void add(T action)
+    {
+        queue.push(action);
     }
 };
 

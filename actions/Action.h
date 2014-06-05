@@ -21,7 +21,5 @@ public:
     }
 };
 
-typedef std::shared_ptr<Action> PAction;
-
 
 #endif // ACTION_H
