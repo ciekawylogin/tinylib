@@ -1,8 +1,10 @@
 #include "Socket.h"
 #include <exception>
+#include "API/events/ClientConnectedEvent.h"
 
 Socket::Socket()
 {
+    addrLen = sizeof(clientAddress);
     socketDescriptor=socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if(socketDescriptor==-1) throw std::runtime_error("Nie można utworzyc gniazda.\n");
 }
@@ -40,4 +42,17 @@ void Socket::connect(int addr, int port)
         throw std::runtime_error("Nie mozna zestawic polaczenia z dana maszyna.\n");
 }
 
+int Socket::accept(EventListener evL)
+{
+    int socket = ::accept(socketDescriptor, &clientAddress, &addrLen);
+    if(socket == -1) throw std::runtime_error("accept() error.\n");
+    evL(ClientConnectedEvent("connected"));     //w tym evencie bedzie funkcja do odpalenia nowego watku?
+    return socket;
+}
+
+void Socket::close()
+{
+    if(::close(socketDescriptor)!=0)
+        throw std::runtime_error("Blad podczas zamykania polaczenia.\n");
+}
 

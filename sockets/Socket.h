@@ -19,12 +19,15 @@ public:
     Socket();
     void bind();
     void listen();
-    void connect();
+    void connect(int, int);
     int accept(EventListener);
     void setPort(int);
+    void close();
 private:
     int socketDescriptor;
     int port;
+    struct sockaddr clientAddress;
+    unsigned int addrLen;
 };
 
 #endif // SOCKET_H
