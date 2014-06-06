@@ -23,6 +23,7 @@ public:
     int accept(EventListener);
     void setPort(int);
     void close();
+    void close(int);
 private:
     int socketDescriptor;
     int port;

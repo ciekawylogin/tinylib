@@ -56,3 +56,8 @@ void Socket::close()
         throw std::runtime_error("Blad podczas zamykania polaczenia.\n");
 }
 
+void Socket::close(int sockFd)
+{
+    if(::close(sockFd)!=0)
+        throw std::runtime_error("Blad podczas zamykania polaczenia.\n");
+}
