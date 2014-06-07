@@ -39,7 +39,6 @@ void Socket::connect(std::string addr, int port)
 {
     struct sockaddr_in name;
     name.sin_family = AF_INET;
-    //name.sin_addr.s_addr = htonl(addr);
     name.sin_addr.s_addr = inet_addr(addr.c_str());
     name.sin_port = htons((short)port);
 
@@ -48,15 +47,13 @@ void Socket::connect(std::string addr, int port)
     isServer=false;
 }
 
-int Socket::accept(EventListener evL)
+void Socket::accept(EventListener evL)
 {
     //trzeba bedzie w watku serwera zamykac nowy socket, a w watku obslugi polaczenia socket serwera
-    int socket = ::accept(socketDescriptor, &clientAddress, &addrLen);
-    clientSocketDescriptor = socket;
-    if(socket == -1) throw std::runtime_error("accept() error.\n");
+    clientSocketDescriptor = ::accept(socketDescriptor, &clientAddress, &addrLen);
+    if(clientSocketDescriptor == -1) throw std::runtime_error("accept() error.\n");
     ClientConnectedEvent *event = new ClientConnectedEvent("connected");
     evL(event);     //w tym evencie bedzie funkcja do odpalenia nowego watku?
-    return socket;
 }
 
 void Socket::close()

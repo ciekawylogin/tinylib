@@ -24,7 +24,7 @@ public:
     int read(char *, int);
     int write(char *, int);
     void connect(std::string, int);
-    int accept(EventListener);
+    void accept(EventListener);
     void setPort(int);
     void close();
     void close(int);
