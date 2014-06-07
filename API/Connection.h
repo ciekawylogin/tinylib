@@ -4,6 +4,7 @@
 #include "EventListener.h"
 #include "AsyncOperation.h"
 #include "../sockets/Socket.h"
+#include "../API/ConnectionState"
 
 #include <thread>
 #include "../threads/ReadingThread.h"
@@ -91,6 +92,13 @@ public:
      * Połączenie może być niegotowe, jeżeli trwa na nim operacja synchronicznego zapisu/odczytu danych.
      */
     bool isReady();
+
+	/**
+	* @brief Metoda zwracajaca stan polaczenia
+	*
+	* Dane polaczenie moze znajdowac sie w nastepujacych stanach: CREATED, READY, WAITING, SENDING, RECEIVING, CLOSED
+	*/
+	ConnectionState getState();
 
     friend class Server;
 };

@@ -1,5 +1,6 @@
 #include "ServerConnection.h"
 
-ServerConnection::ServerConnection()
+ServerConnection::ServerConnection():
+    Connection(Socket())
 {
 }
