@@ -18,18 +18,18 @@ protected:
     std::shared_ptr<BlockingQueue<T> > queue;
 public:
     WorkingThread():
-        queue(new BlockingQueue<T>())
+    queue(new BlockingQueue<T>())
     {
-
+        
     }
-
+    
     void run()
     {
         thread = new std::thread([&]()
         {
             while(true)
             {
-                Action action = queue.pop(); // <- w tym miejscu sie zawiesi
+                T action = queue->pop(); // <- w tym miejscu sie zawiesi
                 if(!action.isCancelled())
                 {
                     action.perform();
@@ -41,12 +41,12 @@ public:
                 }
             }
         });
-
+        
         // przerwano
-
+        
         std::cerr << "Przerwano wykonanie watku" << std::endl;
     }
-
+    
     void add(T action)
     {
         queue->push(action);
