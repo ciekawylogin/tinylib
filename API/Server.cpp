@@ -48,6 +48,7 @@ void Server::addToBlackList(std::string ip)
      }
      return false;
  }
+
 void Server::listenAsync()
 {
     if(listener == nullptr)
