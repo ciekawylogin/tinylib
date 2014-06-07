@@ -53,7 +53,7 @@ public:
      *        naprawienia przez bibliotekę)
      * @return Obiekt, który pozwala zarządzać operacją wysyłania (patrz opis klasy AsyncOperation)
      */
-    AsyncOperation writeAsync(char *data, int dataSize, EventListener success, EventListener failure);
+    AsyncOperation *writeAsync(char *data, int dataSize, EventListener success, EventListener failure);
 
     /**
      * @brief readAsync Zleca odebranie danych w trybie asynchronicznym
@@ -69,7 +69,7 @@ public:
      *        naprawienia przez bibliotekę)
      * @return Obiekt, który pozwala zarządzać operacją odbierania (patrz opis klasy AsyncOperation)
      */
-    AsyncOperation readAsync(char *data, int maxDataSize, EventListener success, EventListener failure);
+    AsyncOperation *readAsync(char *data, int maxDataSize, EventListener success, EventListener failure);
 
     /**
      * @brief Wysyła dane przez gniazdo. Wątek wołający zostanie zawieszony w oczekiwaniu, aż dane zostaną
