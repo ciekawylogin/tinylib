@@ -4,16 +4,19 @@
 #include "../sockets/Socket.h"
 #include "Action.h"
 #include "../API/EventListener.h"
+#include "../threads/ListenerCallThread.h"
 
 class WritingAction : public Action
 {
+    Socket socket;
     char *data;
     int dataSize;
     EventListener success;
     EventListener failure;
+    ListenerCallThread listener_call_thread;
 
 public:
-    WritingAction(Socket socket, char *data, int dataSize, EventListener success, EventListener failure);
+    WritingAction(Socket socket, char *data, int dataSize, EventListener success, EventListener failure, ListenerCallThread listener_call_thread);
 
     void perform();
 };

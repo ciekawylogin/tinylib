@@ -1,7 +1,7 @@
 #include "ClientConnection.h"
 
 ClientConnection::ClientConnection():
-    Connection(Socket)
+    Connection(Socket())
 {
 
 }
