@@ -24,11 +24,14 @@ public:
     void setPort(int);
     void close();
     void close(int);
+    int send(char *);
 private:
     int socketDescriptor;
+    int clientSocketDescriptor;
     int port;
     struct sockaddr clientAddress;
     unsigned int addrLen;
+    bool isServer;
 };
 
 #endif // SOCKET_H
