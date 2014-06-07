@@ -8,7 +8,7 @@ Connection::Connection(Socket socket)
     state = ConnectionState::CREATED;
 }
 
-AsyncOperation* Connection::writeAsync(char *data, int dataSize, EventListener success, EventListener failure)
+AsyncOperation* Connection::writeAsync(const char *data, int dataSize, EventListener success, EventListener failure)
 {
     WritingAction action(socket, data, dataSize, success, failure, listener_call_thread);
     writing_thread.add(action);
@@ -26,11 +26,13 @@ AsyncOperation* Connection::readAsync(char *data, int dataSize, EventListener su
 
 void Connection::writeSync(const char *data, int dataSize)
 {
+    socket.write(data, dataSize);
 	this->state = ConnectionState::SYNC_SENDING;
 }
 
 void Connection::readSync(char *data, int maxDataSize)
 {
+    socket.read(data, maxDataSize);
 	this->state = ConnectionState::SYNC_RECEIVING;
 }
 

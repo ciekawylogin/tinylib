@@ -20,18 +20,13 @@ class BlockingQueue
 public:
     Data pop()
     {
-        std::cout << "dupa 1 "<< std::endl;
         std::unique_lock<std::mutex> mlock(mutex);
-        std::cout << "dupa 2 "<< std::endl;
         while (queue.empty())
         {
             cond.wait(mlock);
         }
-        std::cout << "dupa 4 "<< std::endl;
         Data item = queue.front();
-        std::cout << "dupa 5 "<< std::endl;
         queue.pop();
-        std::cout << "dupa 7 "<< std::endl;
         return item;
     }
 
