@@ -30,7 +30,7 @@ std::pair<std::pair<int,int>,std::pair<int,int>> Encrypt::getAsymKeys()
       return std::make_pair(std::make_pair(n,e),std::make_pair(n,d));
 }
 
-void Encrypt::symCrypt(char* buf, int num, char key)
+void Encrypt::symCrypt(char *buf, int num, char key)
 {
     for(int i = 0; i < num; i++)
     {

@@ -95,13 +95,17 @@ void Socket::close(int sockFd)
 
 int Socket::write(const char * buf, int nbytes)
 {
+    char cryptedBuf[nbytes];
+    for(int i=0; i < nbytes; i++){
+        cryptedBuf[i]=buf[i];
+    }
     if(afterInit)
     {
-        Encrypt::symCrypt(buf, nbytes, symKey);
+        Encrypt::symCrypt(cryptedBuf, nbytes, symKey);
     }
     int count;
-    if(isServer) count = ::send(clientSocketDescriptor, (const void *)buf, (size_t)nbytes, 0);
-    else count = ::send(socketDescriptor, (const void *)buf, (size_t)nbytes, 0);
+    if(isServer) count = ::send(clientSocketDescriptor, (const void *)cryptedBuf, (size_t)nbytes, 0);
+    else count = ::send(socketDescriptor, (const void *)cryptedBuf, (size_t)nbytes, 0);
     if(count==-1) {
         std::stringstream ss;
         ss << "Blad podczas wysylania danych.\n" ;

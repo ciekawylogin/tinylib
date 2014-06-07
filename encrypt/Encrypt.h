@@ -9,7 +9,7 @@ public:
     Encrypt();
     static std::pair<std::pair<int,int>,std::pair<int,int>> getAsymKeys();
     static int asymCrypt(int,int,int);
-    static void symCrypt(char*, int, char);
+    static void symCrypt(char *, int, char);
 private:
     static int gcd(int,int);
     static int reverseMod(int,int);
