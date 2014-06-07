@@ -19,10 +19,32 @@ class Server
 public:
     Server(int port);
 
+    /**
+     * @brief addToWhiteList
+     * @param ip
+     * Funkcja dodaje adres IP do bialej listy, na ktorej znajduje sie lista zaufanych adresow IP.
+     */
     void addToWhiteList(std::string ip);
+
+    /**
+     * @brief addToBlackList
+     * @param ip
+     * Funckja dodaje adres IP do czarnej listy, na ktorej znajduje sie lista niezaufanych adresóœ IP.
+     */
     void addToBlackList(std::string ip);
-    bool checkBlackList(std::string);
-    bool checkWhiteList(std::string);
+    /**
+     * @brief checkBlackList
+     * @param ip
+     * @return Czy podane ip znajduje sie na bialej liscie
+     */
+    bool checkBlackList(std::string ip);
+    /**
+     * @brief checkWhiteList
+     * @param ip
+     * @return Czy podane ip znajduje sie na czarnej liscie
+     */
+    bool checkWhiteList(std::string ip);
+
     void setConnectionListener(EventListener);
     void listenSync();
     void listenAsync();
