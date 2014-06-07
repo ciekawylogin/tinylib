@@ -44,6 +44,7 @@ void Socket::connect(int addr, int port)
 
 int Socket::accept(EventListener evL)
 {
+    //trzeba bedzie w watku serwera zamykac nowy socket, a w watku obslugi polaczenia socket serwera
     int socket = ::accept(socketDescriptor, &clientAddress, &addrLen);
     if(socket == -1) throw std::runtime_error("accept() error.\n");
     evL(ClientConnectedEvent("connected"));     //w tym evencie bedzie funkcja do odpalenia nowego watku?

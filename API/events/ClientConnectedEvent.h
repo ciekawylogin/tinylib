@@ -7,6 +7,9 @@ class ClientConnectedEvent : public Event
 {
 public:
     ClientConnectedEvent(std::string);
+
+    int oldSocket;
+    int newSocket;
 };
 
 #endif // CLIENTCONNECTEDEVENT_H
