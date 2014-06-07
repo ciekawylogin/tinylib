@@ -1,9 +1,9 @@
 #ifndef LISTENERCALLTHREAD_H
 #define LISTENERCALLTHREAD_H
 
-#include "../actions/WritingAction.h"
 #include "WorkingThread.h"
+#include "../actions/ListenerCallAction.h"
 
-typedef WorkingThread<WritingAction> ListenerCallThread;
+typedef WorkingThread<ListenerCallAction> ListenerCallThread;
 
 #endif // LISTENERCALLTHREAD_H

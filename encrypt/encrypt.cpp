@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include "encrypt.h"
 
 Encrypt::Encrypt()
@@ -79,3 +80,5 @@ int Encrypt::crypt(int data, int n, int w)
   return res;
 }
 
+=======
+>>>>>>> 54657ccd51bc46f5e16d6f334afaa3ecd8c505c0

@@ -6,7 +6,7 @@
 #include <thread>
 #include <vector>
 #include "IP.h"
-#include<string>
+#include <string>
 
 class Server
 {
@@ -17,7 +17,7 @@ class Server
 
 
 public:
-    Server();
+    Server(int port);
 
     void addToWhiteList(std::string ip);
     void addToBlackList(std::string ip);

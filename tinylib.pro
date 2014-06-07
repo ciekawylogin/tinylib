@@ -67,6 +67,7 @@ HEADERS += \
     actions/ListenerCallAction.h \
     threads/ListenerCallThread.h \
     pipes/Pipe.h \
-    encrypt/encrypt.h
+    encrypt/encrypt.h \
+    API/ConnectionState.h
 
 CONFIG += c++11

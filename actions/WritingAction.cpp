@@ -1,14 +1,17 @@
 #include "WritingAction.h"
 
-WritingAction::WritingAction(char *data, int dataSize, EventListener success, EventListener failure):
+WritingAction::WritingAction(Socket socket, char *data, int dataSize,
+                             EventListener success, EventListener failure, ListenerCallThread listener_call_thread):
+    socket(socket),
     data(data),
     dataSize(dataSize),
     success(success),
-    failure(failure)
+    failure(failure),
+    listener_call_thread(listener_call_thread)
 {
 }
 
-void WritingAction::perform(Socket socket)
+void WritingAction::perform()
 {
-    socket.write(data)
+    socket.write(data, dataSize);
 }

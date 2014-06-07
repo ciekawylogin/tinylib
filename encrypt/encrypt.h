@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #ifndef ENCRYPT_H
 #define ENCRYPT_H
 
@@ -116,3 +117,5 @@ private:
 };
 
 #endif // ENCRYPT_H
+=======
+>>>>>>> 54657ccd51bc46f5e16d6f334afaa3ecd8c505c0
