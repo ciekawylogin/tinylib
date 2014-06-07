@@ -5,7 +5,7 @@ ListenerCallAction::ListenerCallAction(EventListener listener):
 {
 }
 
-void ListenerCallAction::perform(Event event)
+void ListenerCallAction::perform()
 {
 //    listener(event);
 }
