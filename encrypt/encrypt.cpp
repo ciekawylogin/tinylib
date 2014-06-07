@@ -1,5 +1,7 @@
-<<<<<<< HEAD
 #include "encrypt.h"
+#include <cstdlib>
+
+constexpr int Encrypt::primes[1000];
 
 Encrypt::Encrypt()
 {}
@@ -23,8 +25,29 @@ std::pair<std::pair<int,int>,std::pair<int,int>> Encrypt::getKeys()
       d = reverseMod(e,phi);
       //n, e publiczny
       //n, d prywatny
-      return std::pair<std::pair<n, e>, std::pair<n, d>>;
+      return std::make_pair(std::make_pair(n,e),std::make_pair(n,d));
 }
+
+
+//najpierw n, potem e lub d
+
+int Encrypt::crypt(int data, int n, int w)
+{
+  int pow,res,q;
+
+// wykładnik w rozbieramy na sumę potęg 2
+// przy pomocy algorytmu Hornera. Dla reszt
+// niezerowych tworzymy iloczyn potęg a modulo n.
+
+  pow = data; res = 1;
+  for(q = w; q > 0; q /= 2)
+  {
+    if(q % 2) res = (res * pow) % n;
+    pow = (pow * pow) % n; // kolejna potęga
+  }
+  return res;
+}
+
 
 int Encrypt::gcd(int a, int b)
 {
@@ -61,24 +84,5 @@ int Encrypt::reverseMod(int a, int n)
   return p1;
 }
 
-//najpierw n, potem e lub d
 
-int Encrypt::crypt(int data, int n, int w)
-{
-  int pow,res,q;
 
-// wykładnik w rozbieramy na sumę potęg 2
-// przy pomocy algorytmu Hornera. Dla reszt
-// niezerowych tworzymy iloczyn potęg a modulo n.
-
-  pow = data; res = 1;
-  for(q = w; q > 0; q /= 2)
-  {
-    if(q % 2) res = (res * pow) % n;
-    pow = (pow * pow) % n; // kolejna potęga
-  }
-  return res;
-}
-
-=======
->>>>>>> 54657ccd51bc46f5e16d6f334afaa3ecd8c505c0

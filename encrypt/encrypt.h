@@ -1,6 +1,7 @@
-<<<<<<< HEAD
 #ifndef ENCRYPT_H
 #define ENCRYPT_H
+
+#include <utility>
 
 class Encrypt
 {
@@ -9,11 +10,11 @@ public:
     static std::pair<std::pair<int,int>,std::pair<int,int>> getKeys();
     static int crypt(int,int,int);
 private:
-    int gcd(int,int);
-    int reverseMod(int,int);
-    int powerMod(int,int,int);
+    static int gcd(int,int);
+    static int reverseMod(int,int);
+    static int powerMod(int,int,int);
 
-    static const int primes[1000] = {	 15469313, 15469327, 15469339, 15469343, 15469351, 15469373, 15469453, 15469459, 15469469, 15469511,
+    static constexpr int primes[1000] = {	 15469313, 15469327, 15469339, 15469343, 15469351, 15469373, 15469453, 15469459, 15469469, 15469511,
                             15469513, 15469537, 15469577, 15469579, 15469583, 15469613, 15469621, 15469633, 15469679, 15469687,
                              15469703, 15469709, 15469747, 15469759, 15469763, 15469771, 15469787, 15469793, 15469829, 15469871,
                             15469873, 15469897, 15469901, 15469939, 15469943, 15469967, 15469991, 15469999, 15470029, 15470057,
@@ -117,5 +118,4 @@ private:
 };
 
 #endif // ENCRYPT_H
-=======
->>>>>>> 54657ccd51bc46f5e16d6f334afaa3ecd8c505c0
+
