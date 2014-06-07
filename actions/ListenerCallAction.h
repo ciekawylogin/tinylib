@@ -9,7 +9,7 @@ class ListenerCallAction : public Action
     EventListener listener;
 public:
     ListenerCallAction(EventListener);
-    void perform(Event);
+    void perform();
 };
 
 #endif // LISTENERCALLACTION_H

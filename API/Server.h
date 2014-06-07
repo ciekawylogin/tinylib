@@ -21,6 +21,8 @@ public:
 
     void addToWhiteList(std::string ip);
     void addToBlackList(std::string ip);
+    bool checkBlackList(std::string);
+    bool checkWhiteList(std::string);
     void setConnectionListener(EventListener);
     void listenSync();
     void listenAsync();

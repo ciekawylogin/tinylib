@@ -17,6 +17,7 @@
  */
 class Connection
 {
+protected:
     /// Wątek do czytania asynchronicznego
     ReadingThread reading_thread;
 
@@ -26,13 +27,12 @@ class Connection
     /// Wątek do wołania listenerów
     ListenerCallThread listener_call_thread;
 
-    /// Gniazdo, za pomocą którego
+    /// Gniazdo, za pomocą którego wysyłamy / odbieramy
     Socket socket;
 
-protected:
     /// Obiekty tej klasy nie powinny być tworzone jawnie. Połączenia klienckie tworzymy
     /// za pomocą ClientConnection, zaś serwerowe są tworzone przez obiekt klasy Server.
-    Connection();
+    Connection(Socket socket);
 
 public:
 

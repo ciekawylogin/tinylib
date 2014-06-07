@@ -4,6 +4,7 @@ ReadingAction::ReadingAction(char *data, int dataSize, EventListener success, Ev
 {
 }
 
-void ReadingAction::perform()
+void ReadingAction::perform(Socket socket)
 {
+
 }
