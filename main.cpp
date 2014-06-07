@@ -18,6 +18,7 @@
 #include "API/EventListener.h"
 #include "API/events/DataReadEvent.h"
 
+/*
 void wyslijDane(Connection conn)
 {
     std::string str = "Hello, world!";
@@ -46,10 +47,32 @@ void odbierzDane(Connection conn)
         std::cout << "Blad odbierania: "<< event.getMessage() << std::endl;
     });
 }
+*/
 
 int main()
 {
-    [](){}();
+    int a;
+    std::cin >> a;
+
+    if(a == 0)
+    {
+        Socket socket;
+        socket.setPort(1235);
+        socket.bind();
+        socket.listen();
+        socket.accept([&socket](Event*){
+            std::cout << "przyszlo polaczenie;" << std::endl;
+            socket.write("dupa dupa gowno cycki", 21);
+        });
+    }
+    else
+    {
+        Socket socket;
+        socket.connect("192.168.1.23", 1235);
+        char cos[50];
+        socket.read(cos, 50);
+        std::cout << cos;
+    }
 
     return 0;
 }

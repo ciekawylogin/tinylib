@@ -26,7 +26,10 @@ SOURCES += \
     actions/WritingAction.cpp \
     actions/ReadingAction.cpp \
     actions/ListenerCallAction.cpp \
-    threads/ListenerCallThread.cpp
+    threads/ListenerCallThread.cpp \
+    sockets/srpserver.cpp \
+    sockets/srpclient.cpp \
+    sockets/Source.cpp
 
 OTHER_FILES += \
     README.md

@@ -1,4 +1,4 @@
-#include <openssl/applink.c> // To prevent crashing (see the OpenSSL FAQ)
+/*
 #include <openssl/bio.h> // BIO objects for I/O
 #include <openssl/ssl.h> // SSL and SSL_CTX for SSL connections
 #include <openssl/err.h> // Error reporting
@@ -49,3 +49,4 @@ int main(int argc, char** argv) {
 	system("pause");
 	return 0;
 }
+*/

@@ -6,6 +6,7 @@
 #include "sys/types.h"
 #include <netdb.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>
 
 /**
  * @brief Zapewnia abstrakcję dla gniazd TCP, opakowując gniazda linuksowe bądź windowsowe.
@@ -20,12 +21,13 @@ public:
     Socket();
     void bind();
     void listen();
-    void connect(int, int);
+    int read(char *, int);
+    int write(char *, int);
+    void connect(std::string, int);
     int accept(EventListener);
     void setPort(int);
     void close();
     void close(int);
-    int send(char *);
 private:
     int socketDescriptor;
     int clientSocketDescriptor;

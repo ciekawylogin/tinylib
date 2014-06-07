@@ -7,5 +7,5 @@ ListenerCallAction::ListenerCallAction(EventListener listener):
 
 void ListenerCallAction::perform(Event event)
 {
-    listener(event);
+//    listener(event);
 }

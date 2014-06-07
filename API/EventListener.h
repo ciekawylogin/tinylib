@@ -6,7 +6,7 @@
 
 #include <functional>
 
-typedef std::function<void(Event)> EventListener;
+typedef std::function<void(Event*)> EventListener;
 
 //--------------------------------------------------------------------------------
 //spokojnie. dodane tylko to co nizej, latwo usunac
