@@ -55,6 +55,7 @@ void Socket::connect(std::string addr, int port)
     this->write((char*)buf, 8);
     this->read((char*)bufRecv, 4);
     symKey = (char)Encrypt::crypt(bufRecv[0], keys.second.first, keys.second.second);
+    std::cout<<"klucz symetryczny:  "<<symKey<<std::endl;
 }
 
 void Socket::accept(EventListener evL)
