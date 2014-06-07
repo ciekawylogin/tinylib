@@ -2,7 +2,6 @@
 #define EVENTLISTENER_H
 
 #include "events/Event.h"
-#include "events/ClientConnectedEvent.h"
 
 #include <functional>
 
