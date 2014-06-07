@@ -6,7 +6,9 @@ constexpr int Encrypt::primes[1000];
 Encrypt::Encrypt()
 {}
 
-std::pair<std::pair<int,int>,std::pair<int,int>> Encrypt::getKeys()
+
+
+std::pair<std::pair<int,int>,std::pair<int,int>> Encrypt::getAsymKeys()
 {
     int p,q,phi,n,e,d;
 
@@ -28,10 +30,18 @@ std::pair<std::pair<int,int>,std::pair<int,int>> Encrypt::getKeys()
       return std::make_pair(std::make_pair(n,e),std::make_pair(n,d));
 }
 
+void Encrypt::symCrypt(char* buf, int num, char key)
+{
+    for(int i = 0; i < num; i++)
+    {
+        buf[i]=buf[i]^key;
+    }
+}
+
 
 //najpierw n, potem e lub d
 
-int Encrypt::crypt(int data, int n, int w)
+int Encrypt::asymCrypt(int data, int n, int w)
 {
   int pow,res,q;
 
