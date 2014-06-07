@@ -29,7 +29,8 @@ void Socket::bind()
 void Socket::listen()
 {
     if(::listen(socketDescriptor, 128)!=0)
-        throw std::runtime_error("Blad \"stowarzyszenia\" (listen()).\n");
+        throw std::runtime_error("Blad \"stowarzyszenia\" gniazda. (listen()).\n");
+    isServer=true;
 }
 
 void Socket::connect(int addr, int port)
@@ -41,6 +42,7 @@ void Socket::connect(int addr, int port)
 
     if(::connect(socketDescriptor,(struct sockaddr*)&name, sizeof(name))!=0)
         throw std::runtime_error("Nie mozna zestawic polaczenia z dana maszyna.\n");
+    isServer=false;
 }
 
 int Socket::accept(EventListener evL)
@@ -54,6 +56,7 @@ int Socket::accept(EventListener evL)
 
 void Socket::close()
 {
+    if(isServer) close(clientSocketDescriptor);
     if(::close(socketDescriptor)!=0)
         throw std::runtime_error("Blad podczas zamykania polaczenia.\n");
 }
@@ -63,3 +66,22 @@ void Socket::close(int sockFd)
     if(::close(sockFd)!=0)
         throw std::runtime_error("Blad podczas zamykania polaczenia.\n");
 }
+
+int Socket::write(char * buf, int nbytes)
+{
+    int count;
+    if(isServer) count = ::send(clientSocketDescriptor, (const void *)buf, (size_t)nbytes, 0);
+    else count = ::send(socketDescriptor, (const void *)buf, (size_t)nbytes, 0);
+    if(count==-1) throw std::runtime_error("Blad podczas wysylania danych.\n");
+    else return count;
+}
+
+int Socket::read(char * buf, int nbytes)
+{
+    int count;
+    if(isServer) count = ::recv(clientSocketDescriptor, (void*)buf, (size_t)nbytes, 0);
+    else count = ::recv(socketDescriptor, (void*)buf, (size_t)nbytes, 0);
+    if(count==-1) throw std::runtime_error("Blad podczas czytania danych.\n");
+    else return count;
+}
+
