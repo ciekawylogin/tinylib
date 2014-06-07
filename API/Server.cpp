@@ -17,6 +17,16 @@ void Server::listenSync()
 
 }
 
+void Server::addToBlackList(std::string ip)
+{
+    blackList.push_back(IP(ip));
+}
+
+ void Server::addToWhiteList(std::string ip)
+ {
+    whiteList.push_back(IP(ip));
+ }
+
 void Server::listenAsync()
 {
     if(listener == nullptr)
