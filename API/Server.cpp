@@ -30,10 +30,10 @@ void Server::addToBlackList(std::string ip)
 
  bool Server::checkBlackList(std::string ip)
  {
-     IP x = IP(ip);
+     IP y = IP(ip);
      for(IP x: blackList)
      {
-         if(std::string(x.address) == std::string(x.address))
+         if(x==y)
              return true;
      }
      return false;
@@ -41,10 +41,10 @@ void Server::addToBlackList(std::string ip)
 
  bool Server::checkWhiteList(std::string ip)
  {
-     IP x = IP(ip);
+     IP y = IP(ip);
      for(IP x: whiteList)
      {
-         if(std::string(x.address) == std::string(x.address))
+         if(x==y)
              return true;
      }
      return false;
@@ -61,8 +61,8 @@ void Server::listenAsync()
     {
         while(true)
         {
-            socket.accept();
-            listener();
+            //socket.accept();
+            //listener();
         }
     });
 }

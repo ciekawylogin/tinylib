@@ -24,6 +24,10 @@ public:
      * Kolejność bajtów (big/little endian) zależna od platformy na której działamy
      */
     IP(int);
+
+    char *getAddress();
+
+    bool operator==(IP y);
 };
 
 #endif // IP_H
