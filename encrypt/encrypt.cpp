@@ -3,7 +3,7 @@
 Encrypt::Encrypt()
 {}
 
-static std::pair<std::pair<int,int>,std::pair<int,int>> Encrypt::getKeys()
+std::pair<std::pair<int,int>,std::pair<int,int>> Encrypt::getKeys()
 {
     int p,q,phi,n,e,d;
 
@@ -60,7 +60,9 @@ int Encrypt::reverseMod(int a, int n)
   return p1;
 }
 
-int Encrypt::powerMod(int a, int w, int n)
+//najpierw n, potem e lub d
+
+int Encrypt::crypt(int data, int n, int w)
 {
   int pow,res,q;
 
@@ -68,7 +70,7 @@ int Encrypt::powerMod(int a, int w, int n)
 // przy pomocy algorytmu Hornera. Dla reszt
 // niezerowych tworzymy iloczyn potęg a modulo n.
 
-  pow = a; res = 1;
+  pow = data; res = 1;
   for(q = w; q > 0; q /= 2)
   {
     if(q % 2) res = (res * pow) % n;
@@ -77,10 +79,3 @@ int Encrypt::powerMod(int a, int w, int n)
   return res;
 }
 
-static Encrypt::std::pair<char*,int> encrypt(char* buf,int num)
-{
-    char *res;
-
-}
-
-static std::pair<char*,int> decrypt(char*,int);

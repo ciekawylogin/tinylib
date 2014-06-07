@@ -6,8 +6,7 @@ class Encrypt
 public:
     Encrypt();
     static std::pair<std::pair<int,int>,std::pair<int,int>> getKeys();
-    static int* encrypt(char*,int);
-    static std::pair<char*,int> decrypt(char*,int);
+    static int crypt(int,int,int);
 private:
     int gcd(int,int);
     int reverseMod(int,int);

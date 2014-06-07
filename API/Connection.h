@@ -98,7 +98,7 @@ public:
 	*
 	* Dane polaczenie moze znajdowac sie w nastepujacych stanach: CREATED, READY, WAITING, SENDING, RECEIVING, CLOSED
 	*/
-	ConnectionState getState();
+    ConnectionState getState();
 
     friend class Server;
 };
