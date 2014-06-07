@@ -1,9 +1,9 @@
 #ifndef SOCKET_H
 #define SOCKET_H
 
-#include "API/EventListener.h"
-#include "sys/socket.h"
-#include "sys/types.h"
+#include "../API/EventListener.h"
+#include "../sockets/Socket.h"
+//#include "../sys/types.h"
 #include <netdb.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>

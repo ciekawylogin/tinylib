@@ -4,8 +4,7 @@
 #include "EventListener.h"
 #include "AsyncOperation.h"
 #include "../sockets/Socket.h"
-#include "../API/ConnectionState"
-
+#include "../API/ConnectionState.h"
 #include <thread>
 #include "../threads/ReadingThread.h"
 #include "../threads/WritingThread.h"
@@ -34,6 +33,9 @@ protected:
     /// Obiekty tej klasy nie powinny być tworzone jawnie. Połączenia klienckie tworzymy
     /// za pomocą ClientConnection, zaś serwerowe są tworzone przez obiekt klasy Server.
     Connection(Socket socket);
+
+	// Klasa reprezentujaca stan polaczenia
+	ConnectionState state;
 
 public:
 

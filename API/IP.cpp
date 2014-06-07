@@ -22,3 +22,17 @@ IP::IP(int)
 {
     throw new std::runtime_error("not yet implemented");
 }
+
+
+char* IP::getAddress()
+{
+    return address;
+}
+
+bool IP::operator==(IP y)
+{
+    for(int i =0; i<4;++i)
+        if(getAddress()[i] != y.getAddress()[i])
+            return false;
+    return true;
+}

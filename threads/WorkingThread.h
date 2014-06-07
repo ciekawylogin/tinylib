@@ -15,9 +15,10 @@ class WorkingThread
 {
 protected:
     std::thread *thread;
-    BlockingQueue<T> queue;
+    std::shared_ptr<BlockingQueue<T> > queue;
 public:
-    WorkingThread()
+    WorkingThread():
+        queue(new BlockingQueue<T>())
     {
 
     }
@@ -48,7 +49,7 @@ public:
 
     void add(T action)
     {
-        queue.push(action);
+        queue->push(action);
     }
 };
 
