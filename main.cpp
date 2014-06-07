@@ -72,6 +72,7 @@ int main()
         char cos[50];
         socket.read(cos, 50);
         std::cout << cos;
+        socket.write(cos, 21);
     }
 
     return 0;
