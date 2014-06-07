@@ -30,7 +30,8 @@ SOURCES += \
     sockets/srpserver.cpp \
     sockets/srpclient.cpp \
     sockets/Source.cpp \
-    pipes/Pipe.cpp
+    pipes/Pipe.cpp \
+    encrypt/encrypt.cpp
 
 OTHER_FILES += \
     README.md
@@ -65,6 +66,7 @@ HEADERS += \
     actions/ReadingAction.h \
     actions/ListenerCallAction.h \
     threads/ListenerCallThread.h \
-    pipes/Pipe.h
+    pipes/Pipe.h \
+    encrypt/encrypt.h
 
 CONFIG += c++11
