@@ -5,6 +5,10 @@
 #include "AsyncOperation.h"
 #include "../sockets/Socket.h"
 #include "../API/ConnectionState.h"
+<<<<<<< HEAD
+=======
+
+>>>>>>> d39d4605f0a837c1ac48039866ebedfaf6a3977a
 #include <thread>
 #include "../threads/ReadingThread.h"
 #include "../threads/WritingThread.h"
