@@ -11,9 +11,9 @@
  */
 class IP
 {
+public:
     /// Właściwy adres trzymamy w postaci 4 bajtów ('ważniejsze' liczby idą jako pierwsze)
     char address[4];
-public:
     /**
      * Tworzy adres IP na podstawie napisu w standardowej postaci, np. "192.168.0.1"
      */

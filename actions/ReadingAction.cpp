@@ -1,4 +1,6 @@
 #include "ReadingAction.h"
+#include <API/events/DataReadEvent.h>
+#include <API/events/ReadingErrorEvent.h>
 
 ReadingAction::ReadingAction(Socket socket, char *data, int dataSize,
                              EventListener success, EventListener failure, ListenerCallThread listener_call_thread):
@@ -13,5 +15,15 @@ ReadingAction::ReadingAction(Socket socket, char *data, int dataSize,
 
 void ReadingAction::perform()
 {
-    socket.read(data, dataSize);
+    try
+    {
+        socket.read(data, dataSize);
+        DataReadEvent *event = new DataReadEvent("lol i just read some data :o");
+        success(event);
+    }
+    catch (std::runtime_error error)
+    {
+        ReadingErrorEvent *event = new ReadingErrorEvent("Socket error while reading data");
+        failure(event);
+    }
 }

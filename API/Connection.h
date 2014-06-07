@@ -4,7 +4,7 @@
 #include "EventListener.h"
 #include "AsyncOperation.h"
 #include "../sockets/Socket.h"
-#include "../API/ConnectionState"
+#include "../API/ConnectionState.h"
 
 #include <thread>
 #include "../threads/ReadingThread.h"
