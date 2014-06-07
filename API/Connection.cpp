@@ -12,7 +12,7 @@ AsyncOperation Connection::writeAsync(char *data, int dataSize, EventListener su
 {
     WritingAction action(socket, data, dataSize, success, failure, listener_call_thread);
     writing_thread.add(action);
-	this->state = ConnectionState::SENDING;
+	this->state = ConnectionState::ASYNC_SENDING;
     return AsyncOperation(action);
 }
 
@@ -20,24 +20,21 @@ AsyncOperation Connection::readAsync(char *data, int dataSize, EventListener suc
 {
     ReadingAction action(socket, data, dataSize, success, failure, listener_call_thread);
     reading_thread.add(action);
-	this->state = ConnectionState::RECEIVING;
+	this->state = ConnectionState::ASYNC_RECEIVING;
     return AsyncOperation(action);
 }
-<<<<<<< HEAD
 
 void Connection::writeSync(const char *data, int dataSize)
 {
-	this->state = ConnectionState::SENDING;
+	this->state = ConnectionState::SYNC_SENDING;
 }
 
 void Connection::readSync(char *data, int maxDataSize)
 {
-	this->state = ConnectionState::RECEIVING;
+	this->state = ConnectionState::SYNC_RECEIVING;
 }
 
 ConnectionState Connection::getState()
 {
 	return this->state;
 }
-=======
->>>>>>> ea5caaf1cf1bfdf48b0ac3d8b47675e48faadbe9
