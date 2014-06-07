@@ -29,7 +29,8 @@ SOURCES += \
     threads/ListenerCallThread.cpp \
     sockets/srpserver.cpp \
     sockets/srpclient.cpp \
-    sockets/Source.cpp
+    sockets/Source.cpp \
+    pipes/Pipe.cpp
 
 OTHER_FILES += \
     README.md
@@ -63,6 +64,7 @@ HEADERS += \
     actions/WritingAction.h \
     actions/ReadingAction.h \
     actions/ListenerCallAction.h \
-    threads/ListenerCallThread.h
+    threads/ListenerCallThread.h \
+    pipes/Pipe.h
 
 CONFIG += c++11

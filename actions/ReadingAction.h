@@ -7,7 +7,7 @@
 class ReadingAction : public Action
 {
 public:
-    ReadingAction(char *data, int dataSize, EventListener success, EventListener failure);
+    ReadingAction(Socket socket, char *data, int dataSize, EventListener success, EventListener failure);
 
     void perform();
 };
