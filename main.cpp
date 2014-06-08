@@ -60,7 +60,7 @@ int main() //try
     std::cin >> a;
     if(a == 0)
     {
-        Server server(2345);
+        Server server(1234);
         server.setConnectionListener([](PEvent event_)
         {
             std::cout << "a";
@@ -92,7 +92,7 @@ int main() //try
     {
 
         ClientConnection client;
-        client.connect("127.0.0.1", 2345);
+        client.connect("127.0.0.1", 1234);
         std::cout << "polaczono z klientem, kliknij enter aby wyslac wiadomosc" << "\n";
         while(1)
         {
