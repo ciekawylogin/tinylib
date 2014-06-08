@@ -13,3 +13,8 @@ int OutputPipe::write(const char *buffer, int buffer_size) const
 {
     return ::write(fd, buffer, buffer_size);
 }
+
+int OutputPipe::getUnixDescriptor() const
+{
+    return fd;
+}
