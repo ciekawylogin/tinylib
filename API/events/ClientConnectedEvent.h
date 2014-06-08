@@ -2,14 +2,14 @@
 #define CLIENTCONNECTEDEVENT_H
 
 #include "Event.h"
+#include "../Connection.h"
 
 class ClientConnectedEvent : public Event
 {
+    Connection *connection;
 public:
     ClientConnectedEvent(std::string);
-
-    int oldSocket;
-    int newSocket;
+    Connection *getConnection();
 };
 
 #endif // CLIENTCONNECTEDEVENT_H
