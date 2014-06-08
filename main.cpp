@@ -28,11 +28,11 @@ void wyslijDane(Connection conn)
 {
     std::string str = "Hello, world!";
     conn.writeAsync((char *)str.c_str(), str.size(),
-    [](Event *event) // success
+    [](PEvent event) // success
     {
         std::cout << "Pomyslnie wyslano dane!" << std::endl;
     },
-    [](Event *event) // error
+    [](PEvent event) // error
     {
         std::cout << "Blad wysylania: "<< event->getMessage() << std::endl;
     });
@@ -43,11 +43,11 @@ void odbierzDane(Connection conn)
     const int max_length = 128;
     char buffer[max_length];
     conn.readAsync(buffer, max_length,
-    [&buffer](Event *event) // success
+    [&buffer](PEvent event) // success
     {
         std::cout << "Odebrano dane: " << buffer << std::endl;
     },
-    [](Event *event) // error
+    [](PEvent event) // error
     {
         std::cout << "Blad odbierania: "<< event->getMessage() << std::endl;
     });
@@ -61,19 +61,19 @@ int main() //try
     if(a == 0)
     {
         Server server(2345);
-        server.setConnectionListener([](Event *event_)
+        server.setConnectionListener([](PEvent event_)
         {
             std::cout << "a";
-            ClientConnectedEvent *event = static_cast<ClientConnectedEvent*>(event_);
+            std::shared_ptr<ClientConnectedEvent> event (static_cast<ClientConnectedEvent*>(event_.get()));
             std::cout << "Podlaczyl sie klient" << "\n";
             std::shared_ptr<Connection> connection = event->getConnection();
             for(int i=0;i<10;++i)
             {
                 char tab[50];
-                connection->readAsync(tab, 50, [tab](Event *event)
+                connection->readAsync(tab, 50, [tab](PEvent event)
                 { // success
                     std::cout << "odebrano dane" << "\n";
-                }, [](Event *event)
+                }, [](PEvent event)
                 { // failure
                     std::cout << "blad: " << event->getMessage() << "\n";
                 });

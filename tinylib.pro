@@ -27,9 +27,6 @@ SOURCES += \
     actions/ReadingAction.cpp \
     actions/ListenerCallAction.cpp \
     threads/ListenerCallThread.cpp \
-    sockets/srpserver.cpp \
-    sockets/srpclient.cpp \
-    sockets/Source.cpp \
     pipes/Pipe.cpp \
     encrypt/Encrypt.cpp \
     pipes/InputPipe.cpp \

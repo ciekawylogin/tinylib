@@ -16,6 +16,7 @@ class Socket
 
 public:
     Socket();
+    Socket(int,int,int,struct sockaddr*,int*,char);
     void bind();
     void listen();
     int read(char *, int);

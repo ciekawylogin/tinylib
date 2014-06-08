@@ -1,6 +1,6 @@
 #include "ListenerCallAction.h"
 
-ListenerCallAction::ListenerCallAction(EventListener listener, Event *event):
+ListenerCallAction::ListenerCallAction(EventListener listener, PEvent event):
     listener(listener),
     event(event)
 {
