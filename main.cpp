@@ -19,6 +19,8 @@
 #include "API/events/DataReadEvent.h"
 
 #include "API/events/ClientConnectedEvent.h"
+#include "pipes/OutputPipe.h"
+#include "pipes/InputPipe.h"
 
 void wyslijDane(Connection conn)
 {
@@ -49,45 +51,26 @@ void odbierzDane(Connection conn)
     });
 }
 
-int main()
+int main() try
 {
     int m;
     std::cin >> m;
 
-    if(m == 0)
-    {
-        Server s(1234);
-        s.setConnectionListener([](Event *event_){
-            ClientConnectedEvent *event = static_cast<ClientConnectedEvent *>(event_);
-            std::cout << "polaczono" << std::endl;
+    std::pair<InputPipe, OutputPipe> pipes = Pipe::createPipesPair();
 
-            Connection *c = event->getConnection();
-            std::cout << "wskaznik = " << c << "\n";
-            char text[29];
-            c->readSync(text, 28);
-            std::cout << text << "\n";
+    std::thread thread_1([pipes](){
+        char buf[20];
+        pipes.first.read(buf, 20);
+        std::cout << buf << "\n";
+    });
 
-            c->readSync(text, 28);
-            std::cout << text << "\n";
+    std::thread thread_2([pipes](){
+        char buf[20] = "bijcie masterczulki";
+        pipes.second.write(buf, 20);
+    });
 
-            c->readSync(text, 28);
-            std::cout << text << "\n";
-        });
-        s.listenSync();
-
-        while(1){};
-    }
-    else
-    {
-        ClientConnection c;
-        c.connect("127.0.0.1", 1234);
-
-        while(1)
-        {
-            c.writeAsync("dupa", 4, [](Event *){}, [](Event *){});
-        };
-    }
-
+    thread_1.join();
+    thread_2.join();
 /*
     int a;
     std::cin >> a;
@@ -116,4 +99,7 @@ int main()
     
     return 0;
 }
-
+catch (std::exception e)
+{
+    std::cout << e.what() << std::endl;
+}
