@@ -7,6 +7,7 @@ class FailureEvent: public Event
 {
 public:
     FailureEvent(std::string);
+    ~FailureEvent(){}
 };
 
 #endif // FAILUREEVENT_H

@@ -7,6 +7,7 @@ class ReadingErrorEvent : public FailureEvent
 {
 public:
     ReadingErrorEvent(std::string);
+    ~ReadingErrorEvent(){}
 };
 
 #endif // READINGERROREVENT_H

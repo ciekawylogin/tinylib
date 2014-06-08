@@ -60,11 +60,10 @@ int main() //try
     std::cin >> a;
     if(a == 0)
     {
-        Server server(2345);
+        Server server(1234);
         server.setConnectionListener([](PEvent event_)
         {
-            std::cout << "a";
-            std::shared_ptr<ClientConnectedEvent> event (static_cast<ClientConnectedEvent*>(event_.get()));
+            std::shared_ptr<ClientConnectedEvent> event = std::dynamic_pointer_cast<ClientConnectedEvent>(event_);
             std::cout << "Podlaczyl sie klient" << "\n";
             std::shared_ptr<Connection> connection = event->getConnection();
             for(int i=0;i<10;++i)
@@ -92,7 +91,7 @@ int main() //try
     {
 
         ClientConnection client;
-        client.connect("192.168.1.121", 2345);
+        client.connect("127.0.0.1", 1234);
         std::cout << "polaczono z klientem, kliknij enter aby wyslac wiadomosc" << "\n";
         while(1)
         {

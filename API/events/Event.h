@@ -10,6 +10,7 @@ class Event
 public:
     Event(std::string);
     std::string getMessage();
+    virtual ~Event(){}
 };
 
 typedef std::shared_ptr<Event> PEvent;

@@ -90,7 +90,6 @@ void Socket::accept(EventListener evL)
     int sck = ::accept(socketDescriptor, sckAdr, (socklen_t *)size);
     if(sck == -1) throw std::runtime_error("accept() error.\n");
 
-
     int n;
     int keyBuf[2];
     this->read((char*)keyBuf, 8);

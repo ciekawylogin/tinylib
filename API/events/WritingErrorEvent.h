@@ -7,6 +7,7 @@ class WritingErrorEvent : public FailureEvent
 {
 public:
     WritingErrorEvent(std::string);
+    ~WritingErrorEvent(){}
 };
 
 #endif // WRITINGERROREVENT_H

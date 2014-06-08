@@ -7,6 +7,7 @@ class DataWroteEvent : public SuccessEvent
 {
 public:
     DataWroteEvent(std::string);
+    virtual ~DataWroteEvent(){}
 };
 
 #endif // DATAWROTEEVENT_H

@@ -11,6 +11,7 @@ class ClientConnectedEvent : public Event
 public:
     ClientConnectedEvent(std::string, std::shared_ptr<Connection> connection);
     std::shared_ptr<Connection> getConnection();
+    ~ClientConnectedEvent(){}
 };
 
 #endif // CLIENTCONNECTEDEVENT_H

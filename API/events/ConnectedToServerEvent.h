@@ -7,6 +7,7 @@ class ConnectedToServerEvent : public Event
 {
 public:
     ConnectedToServerEvent(std::string);
+    ~ConnectedToServerEvent(){}
 };
 
 #endif // CONNECTEDTOSERVEREVENT_H
