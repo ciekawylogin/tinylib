@@ -19,12 +19,14 @@
 #include "API/events/DataReadEvent.h"
 
 #include "API/events/ClientConnectedEvent.h"
+#include "pipes/OutputPipe.h"
+#include "pipes/InputPipe.h"
 
 void wyslijDane(Connection conn)
 {
     std::string str = "Hello, world!";
     conn.writeAsync((char *)str.c_str(), str.size(),
-                    [](Event *event) // success
+    [](Event *event) // success
     {
         std::cout << "Pomyslnie wyslano dane!" << std::endl;
     },
@@ -39,7 +41,7 @@ void odbierzDane(Connection conn)
     const int max_length = 128;
     char buffer[max_length];
     conn.readAsync(buffer, max_length,
-                   [&buffer](Event *event) // success
+    [&buffer](Event *event) // success
     {
         std::cout << "Odebrano dane: " << buffer << std::endl;
     },
@@ -49,39 +51,28 @@ void odbierzDane(Connection conn)
     });
 }
 
-int main()
+int main() try
 {
-    /*
     int m;
     std::cin >> m;
 
-    char text[25];
-    if(m == 0)
-    {
-        Server s(1234);
-        s.setConnectionListener([&text](Event *event_){
-            ClientConnectedEvent *event = static_cast<ClientConnectedEvent *>(event_);
-            std::cout << "polaczono" << std::endl;
+    std::pair<InputPipe, OutputPipe> pipes = Pipe::createPipesPair();
 
-            Connection *c = event->getConnection();
-            c->readAsync(text, 20, [](Event *){}, [](Event *){});
-            std::cout << text << "\n";
-        });
-        s.listenSync();
+    std::thread thread_1([pipes](){
+        char buf[20];
+        pipes.first.read(buf, 20);
+        std::cout << buf << "\n";
+    });
 
-        while(1){};
-    }
-    else
-    {
-        ClientConnection c;
-        c.connect("127.0.0.1", 1234);
+    std::thread thread_2([pipes](){
+        char buf[20] = "bijcie masterczulki";
+        pipes.second.write(buf, 20);
+    });
 
-        c.writeAsync("dupa", 4, [](Event *){}, [](Event *){});
+    thread_1.join();
+    thread_2.join();
 
-        while(1){};
-    }
-*/
-
+/*
     int i =10;
     int a;
     while(i--){
@@ -104,14 +95,18 @@ int main()
     else
     {
         Socket socket;
+        socket.connect("127.0.0.1", 1234);
         socket.connect("127.0.0.1", 1134+i);
         char cos[50];
         socket.read(cos, 50);
         std::cout<<cos<<"\n";
         socket.write(cos, 21);
     }
-}
+*/
     
     return 0;
 }
-
+catch (std::exception e)
+{
+    std::cout << e.what() << std::endl;
+}
