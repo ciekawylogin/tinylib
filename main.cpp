@@ -63,7 +63,8 @@ int main()
             std::cout << "polaczono" << std::endl;
 
             Connection *c = event->getConnection();
-            c->writeSync("dupa", 4);
+            c->readAsync(text, 20, [](Event *){}, [](Event *){});
+            std::cout << text << "\n";
         });
         s.listenSync();
 
@@ -74,8 +75,7 @@ int main()
         ClientConnection c;
         c.connect("127.0.0.1", 1234);
 
-        c.readSync(text, 4);
-        std::cout << text << "\n";
+        c.writeAsync("dupa", 4, [](Event *){}, [](Event *){});
 
         while(1){};
     }

@@ -8,7 +8,7 @@ class ClientConnectedEvent : public Event
 {
     Connection *connection;
 public:
-    ClientConnectedEvent(std::string);
+    ClientConnectedEvent(std::string, Connection *connection);
     Connection *getConnection();
 };
 

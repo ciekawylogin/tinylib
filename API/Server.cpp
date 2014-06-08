@@ -18,6 +18,7 @@ void Server::listenSync()
     while(true)
     {
         socket.accept(listener);
+
     }
 }
 
