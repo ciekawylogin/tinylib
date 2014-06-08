@@ -1,0 +1,5 @@
+enum SecurityPolicy
+{
+	ACCEPT_ALL_EXCEPT_LISTED,
+	ACCEPT_ONLY_LISTED
+};
