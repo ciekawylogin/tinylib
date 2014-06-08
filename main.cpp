@@ -53,7 +53,7 @@ void odbierzDane(Connection conn)
     });
 }
 
-int main() try
+int main() //try
 {
     std::cout << "Wybierz tryb dzialania programu (0 = serwer, 1 = klient):" << "\n";
     int a;
@@ -66,7 +66,7 @@ int main() try
             std::cout << "a";
             ClientConnectedEvent *event = static_cast<ClientConnectedEvent*>(event_);
             std::cout << "Podlaczyl sie klient" << "\n";
-            Connection *connection = event->getConnection();
+            std::shared_ptr<Connection> connection = event->getConnection();
             for(int i=0;i<10;++i)
             {
                 char tab[50];
@@ -106,7 +106,7 @@ int main() try
     }
     return 0;
 }
-catch (std::exception e)
-{
-    std::cout << e.what() << std::endl;
-}
+//catch (std::exception e)
+//{
+ //   std::cout << e.what() << std::endl;
+//}
