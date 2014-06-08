@@ -12,6 +12,7 @@ protected:
     Pipe();
 public:
     static std::pair<InputPipe, OutputPipe>createPipesPair();
+    virtual int getUnixDescriptor() const = 0;
 };
 
 #endif // PIPE_H

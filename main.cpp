@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 
+#include <unistd.h>
+
 #include "API/ServerConnection.h"
 #include "API/ClientConnection.h"
 #include "API/AsyncOperation.h"
@@ -53,56 +55,54 @@ void odbierzDane(Connection conn)
 
 int main() //try
 {
-   /* int m;
-    std::cin >> m;
-
-    std::pair<InputPipe, OutputPipe> pipes = Pipe::createPipesPair();
-
-    std::thread thread_1([pipes](){
-        char buf[20];
-        pipes.first.read(buf, 20);
-        std::cout << buf << "\n";
-    });
-
-    std::thread thread_2([pipes](){
-        char buf[20] = "bijcie masterczulki";
-        pipes.second.write(buf, 20);
-    });
-
-    thread_1.join();
-    thread_2.join();
-*/
-
-    int i =10;
+    std::cout << "Wybierz tryb dzialania programu (0 = serwer, 1 = klient):" << "\n";
     int a;
-    while(i--){
     std::cin >> a;
-
     if(a == 0)
     {
-        Socket socket;
-        socket.setPort(1134+i);
-        socket.bind();
-        socket.listen();
-        socket.accept([&socket](PEvent){
-            std::cout << "przyszlo polaczenie;" << std::endl;
-            socket.write("dupa dupa gowno cycki", 21);
-            char buf[50];
-            socket.read(buf,50);
-            std::cout<<buf<<"\n";
-         });
+        Server server(2345);
+        server.setConnectionListener([](PEvent event_)
+        {
+            std::cout << "a";
+            std::shared_ptr<ClientConnectedEvent> event (static_cast<ClientConnectedEvent*>(event_.get()));
+            std::cout << "Podlaczyl sie klient" << "\n";
+            std::shared_ptr<Connection> connection = event->getConnection();
+            for(int i=0;i<10;++i)
+            {
+                char tab[50];
+                connection->readAsync(tab, 50, [tab](PEvent event)
+                { // success
+                    std::cout << "odebrano dane" << "\n";
+                }, [](PEvent event)
+                { // failure
+                    std::cout << "blad: " << event->getMessage() << "\n";
+                });
+                std::cout << "zawolalem readAsync(), stan = " << connection->getState()  << "\n";
+            }
+        });
+        server.listenAsync();
+        int i=0;
+        while(1)
+        {
+            std::cout << "Dzialam w glownym watku " << i++ << "\n";
+            sleep(1);
+        }
+    }
+    else if(a == 1)
+    {
+        ClientConnection client;
+        client.connect("127.0.0.1", 2345);
+        std::cout << "polaczono z klientem, kliknij enter aby wyslac wiadomosc" << "\n";
+        while(1)
+        {
+            std::string str;
+            std::cin >> str;
+            client.writeSync("Hello, world!", 13);
+        }
     }
     else
     {
-        Socket socket;
-        //socket.connect("127.0.0.1", 1234);
-        socket.connect("127.0.0.1", 1134+i);
-        char cos[50];
-        socket.read(cos, 50);
-        std::cout<<cos<<"\n";
-        socket.write(cos, 21);
-    }
-
+        std::cout << "nierozpoznane polecenie " << "\n";
     }
     return 0;
 }

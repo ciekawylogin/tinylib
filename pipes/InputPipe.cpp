@@ -13,3 +13,8 @@ int InputPipe::read(char *buffer, int buffer_size) const
 {
     return ::read(fd, buffer, buffer_size);
 }
+
+int InputPipe::getUnixDescriptor() const
+{
+    return fd;
+}

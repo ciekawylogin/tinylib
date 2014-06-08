@@ -21,3 +21,4 @@ std::pair<InputPipe, OutputPipe> Pipe::createPipesPair()
     }
     return std::make_pair(InputPipe(fd[0]), OutputPipe(fd[1]));
 }
+
