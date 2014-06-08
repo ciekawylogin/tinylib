@@ -71,28 +71,39 @@ int main() try
 
     thread_1.join();
     thread_2.join();
+
 /*
+    int i =10;
     int a;
+    while(i--){
     std::cin >> a;
 
     if(a == 0)
     {
         Socket socket;
-        socket.setPort(1234);
+        socket.setPort(1134+i);
         socket.bind();
         socket.listen();
         socket.accept([&socket](Event*){
             std::cout << "przyszlo polaczenie;" << std::endl;
             socket.write("dupa dupa gowno cycki", 21);
-        });
+            char buf[50];
+            socket.read(buf,50);
+            std::cout<<buf<<"\n";
+            //for(int i=0;i<21;i++)
+            //std::cout<<buf[i];
+         });
     }
     else
     {
         Socket socket;
         socket.connect("127.0.0.1", 1234);
+        socket.connect("127.0.0.1", 1134+i);
         char cos[50];
         socket.read(cos, 50);
-        std::cout << cos;
+        std::cout<<cos<<"\n";
+        //for(int i=0;i<21;i++)
+        //std::cout<<cos[i];
         socket.write(cos, 21);
     }
 */

@@ -1,7 +1,8 @@
 #include "Encrypt.h"
 #include <cstdlib>
+#include <iostream>
 
-constexpr int Encrypt::primes[1000];
+constexpr int Encrypt::primes[10];
 
 Encrypt::Encrypt()
 {}
@@ -11,11 +12,13 @@ Encrypt::Encrypt()
 std::pair<std::pair<int,int>,std::pair<int,int>> Encrypt::getAsymKeys()
 {
     int p,q,phi,n,e,d;
-
+    do
+    {
+       srand(time(NULL));
     do
       {
-        p = primes[rand() % 1000];
-        q = primes[rand() % 1000];
+        p = primes[rand() % 10];
+        q = primes[rand() % 10];
       } while (p == q);
 
       phi = (p - 1) * (q - 1);
@@ -25,9 +28,11 @@ std::pair<std::pair<int,int>,std::pair<int,int>> Encrypt::getAsymKeys()
 
       for(e = 3; gcd(e,phi) != 1; e += 2);
       d = reverseMod(e,phi);
-      //n, e publiczny
-      //n, d prywatny
-      return std::make_pair(std::make_pair(n,e),std::make_pair(n,d));
+
+    }while(d==e || n==0);
+      //e, n publiczny
+      //d, n prywatny
+      return std::make_pair(std::make_pair(e,n),std::make_pair(d,n));
 }
 
 void Encrypt::symCrypt(char *buf, int num, char key)
@@ -41,7 +46,7 @@ void Encrypt::symCrypt(char *buf, int num, char key)
 
 //najpierw n, potem e lub d
 
-int Encrypt::asymCrypt(int data, int n, int w)
+int Encrypt::asymCrypt(int data, int w, int n)
 {
   int pow,res,q;
 
