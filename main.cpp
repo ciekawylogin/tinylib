@@ -51,7 +51,7 @@ void odbierzDane(Connection conn)
     });
 }
 
-int main() try
+int main() //try
 {
    /* int m;
     std::cin >> m;
@@ -95,7 +95,7 @@ int main() try
     else
     {
         Socket socket;
-        socket.connect("127.0.0.1", 1234);
+        //socket.connect("127.0.0.1", 1234);
         socket.connect("127.0.0.1", 1134+i);
         char cos[50];
         socket.read(cos, 50);
@@ -103,10 +103,10 @@ int main() try
         socket.write(cos, 21);
     }
 
-    
+    }
     return 0;
 }
-catch (std::exception e)
-{
-    std::cout << e.what() << std::endl;
-}
+//catch (std::exception e)
+//{
+ //   std::cout << e.what() << std::endl;
+//}

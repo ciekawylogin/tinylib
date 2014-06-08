@@ -6,6 +6,7 @@
 #include <error.h>
 #include "encrypt/Encrypt.h"
 #include <API/ServerConnection.h>
+#include <cstring>
 
 Socket::Socket()
 {
@@ -47,8 +48,10 @@ void Socket::connect(std::string addr, int port)
     name.sin_port = htons((short)port);
     memset(&name.sin_zero,'\0',8);
 
-    if(::connect(socketDescriptor,(struct sockaddr*)&name, sizeof(struct sockaddr))==-1)
+    if(::connect(socketDescriptor,(struct sockaddr*)&name, sizeof(struct sockaddr))==-1){
         throw std::runtime_error("Nie mozna zestawic polaczenia z dana maszyna.\n");
+        cout<<errno;
+    }
     isServer=false;
 
     std::pair<std::pair<int,int>,std::pair<int,int> > keys = Encrypt::getAsymKeys();
