@@ -2,7 +2,7 @@
 #include <API/events/DataReadEvent.h>
 #include <API/events/ReadingErrorEvent.h>
 
-ReadingAction::ReadingAction(Socket *socket, char *data, int dataSize,
+ReadingAction::ReadingAction(PConnect socket, char *data, int dataSize,
                              EventListener success, EventListener failure, ListenerCallThread listener_call_thread):
     socket(socket),
     data(data),
@@ -18,12 +18,12 @@ void ReadingAction::perform()
     try
     {
         socket->read(data, dataSize);
-        DataReadEvent *event = new DataReadEvent("lol i just read some data :o");
+        std::shared_ptr<DataReadEvent> event (new DataReadEvent("lol i just read some data :o"));
         success(event);
     }
     catch (std::runtime_error error)
     {
-        ReadingErrorEvent *event = new ReadingErrorEvent("Socket error while reading data");
+       std::shared_ptr<ReadingErrorEvent> event (new ReadingErrorEvent("Socket error while reading data"));
         failure(event);
     }
 }

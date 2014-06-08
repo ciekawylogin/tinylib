@@ -9,13 +9,15 @@
 #include "../threads/ReadingThread.h"
 #include "../threads/WritingThread.h"
 #include "../threads/ListenerCallThread.h"
-
+#include<memory>
 
 /**
  * @brief Klasa reprezentująca połączenie z innym komputerem (adresem IP)
  *
  * Posiada powiązany wątek oraz gniazdo TCP, którymi zarządza.
  */
+
+typedef std::shared_ptr<Socket> PConnect;
 class Connection
 {
 protected:
@@ -29,11 +31,11 @@ protected:
     ListenerCallThread listener_call_thread;
 
     /// Gniazdo, za pomocą którego wysyłamy / odbieramy
-    Socket *socket;
+    PConnect socket;
 
     /// Obiekty tej klasy nie powinny być tworzone jawnie. Połączenia klienckie tworzymy
     /// za pomocą ClientConnection, zaś serwerowe są tworzone przez obiekt klasy Server.
-    Connection(Socket *socket);
+    Connection(PConnect socket);
 
 	// Klasa reprezentujaca stan polaczenia
 	ConnectionState state;

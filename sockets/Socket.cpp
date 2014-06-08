@@ -83,11 +83,13 @@ void Socket::connect(std::string addr, int port)
 void Socket::accept(EventListener evL)
 {
     //trzeba bedzie w watku serwera zamykac nowy socket, a w watku obslugi polaczenia socket serwera
+
     struct sockaddr *sckAdr = new struct sockaddr;
     memset(sckAdr,0,sizeof(struct sockaddr));
     int* size = new int(sizeof(struct sockaddr));
-    int sck = ::accept(socketDescriptor, sckAdr, size);
+    int sck = ::accept(socketDescriptor, sckAdr, (socklen_t *)size);
     if(sck == -1) throw std::runtime_error("accept() error.\n");
+
 
     int n;
     int keyBuf[2];
@@ -101,10 +103,10 @@ void Socket::accept(EventListener evL)
     this->write((char*)sendKey, 4);
     afterInit = true;
 
-    Socket *s = new Socket(sck,socketDescriptor,port,sckAdr,size, key);
+    PConnect s = PConnect(new Socket(sck,socketDescriptor,port,sckAdr,size, key));
 
     std::shared_ptr<ServerConnection> connection(new ServerConnection(s));
-    ClientConnectedEvent *event = new ClientConnectedEvent("connected", connection);
+    std::shared_ptr<ClientConnectedEvent> event (new ClientConnectedEvent("connected", connection));
     evL(event);     //w tym evencie bedzie funkcja do odpalenia nowego watku?
 }
 
