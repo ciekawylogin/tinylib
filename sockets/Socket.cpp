@@ -80,7 +80,7 @@ void Socket::close(int sockFd)
         throw std::runtime_error("Blad podczas zamykania polaczenia.\n");
 }
 
-int Socket::write(char * buf, int nbytes)
+int Socket::write(const char * buf, int nbytes)
 {
     int count;
     if(isServer) count = ::send(clientSocketDescriptor, (const void *)buf, (size_t)nbytes, 0);

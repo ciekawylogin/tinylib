@@ -22,7 +22,7 @@ public:
     void bind();
     void listen();
     int read(char *, int);
-    int write(char *, int);
+    int write(const char *, int);
     void connect(std::string, int);
     void accept(EventListener);
     void setPort(int);

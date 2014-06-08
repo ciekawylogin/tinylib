@@ -53,7 +53,7 @@ public:
      *        naprawienia przez bibliotekę)
      * @return Obiekt, który pozwala zarządzać operacją wysyłania (patrz opis klasy AsyncOperation)
      */
-    AsyncOperation *writeAsync(char *data, int dataSize, EventListener success, EventListener failure);
+    AsyncOperation *writeAsync(const char *data, int dataSize, EventListener success, EventListener failure);
 
     /**
      * @brief readAsync Zleca odebranie danych w trybie asynchronicznym

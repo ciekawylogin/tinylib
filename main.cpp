@@ -53,7 +53,7 @@ int main()
 {
     int m;
     std::cin >> m;
-    
+
     char text[25];
     if(m == 0)
     {
@@ -63,20 +63,23 @@ int main()
             std::cout << "polaczono" << std::endl;
 
             Connection *c = event->getConnection();
-            c->readAsync(text, 20, [](Event *){}, [](Event *){});
-            std::cout << text << "\n";
+            c->writeSync("dupa", 4);
         });
         s.listenSync();
+
+        while(1){};
     }
     else
     {
         ClientConnection c;
         c.connect("127.0.0.1", 1234);
 
-        c.writeAsync("dupa", 4, [](Event *){}, [](Event *){});
+        c.readSync(text, 4);
+        std::cout << text << "\n";
+
+        while(1){};
     }
-    
-    while(1){};
+
     
     return 0;
 }

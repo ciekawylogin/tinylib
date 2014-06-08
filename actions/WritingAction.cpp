@@ -1,6 +1,6 @@
 #include "WritingAction.h"
 
-WritingAction::WritingAction(Socket socket, char *data, int dataSize,
+WritingAction::WritingAction(Socket socket, const char *data, int dataSize,
                              EventListener success, EventListener failure, ListenerCallThread listener_call_thread):
     socket(socket),
     data(data),

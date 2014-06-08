@@ -9,14 +9,14 @@
 class WritingAction : public Action
 {
     Socket socket;
-    char *data;
+    const char *data;
     int dataSize;
     EventListener success;
     EventListener failure;
     ListenerCallThread listener_call_thread;
 
 public:
-    WritingAction(Socket socket, char *data, int dataSize, EventListener success, EventListener failure, ListenerCallThread listener_call_thread);
+    WritingAction(Socket socket, const char *data, int dataSize, EventListener success, EventListener failure, ListenerCallThread listener_call_thread);
 
     void perform();
 };

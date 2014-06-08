@@ -15,7 +15,10 @@ void Server::setConnectionListener(EventListener listener)
 
 void Server::listenSync()
 {
-
+    while(true)
+    {
+        socket.accept(listener);
+    }
 }
 
 void Server::addToBlackList(std::string ip)
@@ -57,12 +60,8 @@ void Server::listenAsync()
         throw new std::runtime_error("Cannot listen async when no listener is set!");
     }
 
-    std::thread thread([]()
+    std::thread thread([this]()
     {
-        while(true)
-        {
-            //socket.accept();
-            //listener();
-        }
+        listenSync();
     });
 }
