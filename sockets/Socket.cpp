@@ -11,11 +11,24 @@
 
 Socket::Socket()
 {
+    clientSocketDescriptor=-1;
     symKey = 0;
     afterInit = false;
     addrLen = sizeof(clientAddress);
     socketDescriptor=socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if(socketDescriptor==-1) throw std::runtime_error("Nie można utworzyc gniazda.\n");
+}
+
+Socket::Socket(int clientSocket, int thisSocket, int port, struct sockaddr *sckadr, int *strLen, char key)
+{
+    isServer = true;
+    afterInit = true;
+    clientAddress = *sckadr;
+    addrLen = *strLen;
+    this->port = port;
+    socketDescriptor = thisSocket;
+    clientSocketDescriptor = clientSocket;
+    symKey = key;
 }
 
 void Socket::setPort(int port)
@@ -50,8 +63,8 @@ void Socket::connect(std::string addr, int port)
     memset(&name.sin_zero,'\0',8);
 
     if(::connect(socketDescriptor,(struct sockaddr*)&name, sizeof(struct sockaddr))==-1){
-        throw std::runtime_error("Nie mozna zestawic polaczenia z dana maszyna.\n");
         std::cout<<errno;
+        throw std::runtime_error("Nie mozna zestawic polaczenia z dana maszyna.\n"); 
     }
     isServer=false;
 
@@ -70,10 +83,14 @@ void Socket::connect(std::string addr, int port)
 void Socket::accept(EventListener evL)
 {
     //trzeba bedzie w watku serwera zamykac nowy socket, a w watku obslugi polaczenia socket serwera
-    clientSocketDescriptor = ::accept(socketDescriptor, &clientAddress, &addrLen);
-    if(clientSocketDescriptor == -1) throw std::runtime_error("accept() error.\n");
-    std::shared_ptr<ServerConnection> connection(new ServerConnection(PConnect(this)));
-    std::shared_ptr<ClientConnectedEvent> event (new ClientConnectedEvent("connected", connection));
+
+    struct sockaddr *sckAdr = new struct sockaddr;
+    memset(sckAdr,0,sizeof(struct sockaddr));
+    int* size = new int(sizeof(struct sockaddr));
+    int sck = ::accept(socketDescriptor, sckAdr, (socklen_t *)size);
+    if(sck == -1) throw std::runtime_error("accept() error.\n");
+
+
     int n;
     int keyBuf[2];
     this->read((char*)keyBuf, 8);
@@ -81,10 +98,15 @@ void Socket::accept(EventListener evL)
         srand(time(NULL));
         n = rand() % 128;
     }while(!n);
-    symKey = (char)n;
+    int key = (char)n;
     int sendKey[1] = { Encrypt::asymCrypt(n, keyBuf[0], keyBuf[1]) };
     this->write((char*)sendKey, 4);
     afterInit = true;
+
+    PConnect s = PConnect(new Socket(sck,socketDescriptor,port,sckAdr,size, key));
+
+    std::shared_ptr<ServerConnection> connection(new ServerConnection(s));
+    std::shared_ptr<ClientConnectedEvent> event (new ClientConnectedEvent("connected", connection));
     evL(event);     //w tym evencie bedzie funkcja do odpalenia nowego watku?
 }
 

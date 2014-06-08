@@ -1,5 +1,10 @@
+#ifndef SECURITYPOLICY_H
+#define SECURITYPOLICY_H
+
 enum SecurityPolicy
 {
 	ACCEPT_ALL_EXCEPT_LISTED,
 	ACCEPT_ONLY_LISTED
 };
+
+#endif
