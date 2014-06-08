@@ -49,7 +49,6 @@ void Encrypt::symCrypt(char *buf, int num, char key)
 int Encrypt::asymCrypt(int data, int w, int n)
 {
   int pow,res,q;
-  std::cout<<"w szyfr:   "<<data<<std::endl;
 
 // wykładnik w rozbieramy na sumę potęg 2
 // przy pomocy algorytmu Hornera. Dla reszt

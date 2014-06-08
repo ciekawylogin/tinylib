@@ -98,9 +98,9 @@ int main()
             socket.write("dupa dupa gowno cycki", 21);
             char buf[50];
             socket.read(buf,50);
-
-            for(int i=0;i<21;i++)
-            std::cout<<buf[i];
+            std::cout<<buf<<"\n";
+            //for(int i=0;i<21;i++)
+            //std::cout<<buf[i];
          });
     }
     else
@@ -109,8 +109,9 @@ int main()
         socket.connect("127.0.0.1", 1134+i);
         char cos[50];
         socket.read(cos, 50);
-        for(int i=0;i<21;i++)
-        std::cout<<cos[i];
+        std::cout<<cos<<"\n";
+        //for(int i=0;i<21;i++)
+        //std::cout<<cos[i];
         socket.write(cos, 21);
     }
 }
