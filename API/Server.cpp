@@ -1,4 +1,5 @@
 #include "Server.h"
+#include "../API/SecurityPolicy.h"
 
 Server::Server(int port):
     socket(Socket())
@@ -63,4 +64,9 @@ void Server::listenAsync()
     {
         listenSync();
     });
+}
+
+void Server::setSecurityPolicy(SecurityPolicy policy)
+{
+	this->policy = policy;
 }

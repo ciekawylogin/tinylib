@@ -7,6 +7,7 @@
 #include <vector>
 #include "IP.h"
 #include <string>
+#include "../API/SecurityPolicy.h"
 
 class Server
 {
@@ -14,6 +15,7 @@ class Server
     Socket socket;
     std::vector<IP> blackList;
     std::vector<IP> whiteList;
+	SecurityPolicy policy;
 
 
 public:
@@ -44,6 +46,12 @@ public:
      * @return Czy podane ip znajduje sie na czarnej liscie
      */
     bool checkWhiteList(std::string ip);
+
+	/**
+	* @brief Ustawia tryb dzia³ania listy
+	* @param policy
+	*/
+	void setSecurityPolicy(SecurityPolicy policy);
 
     void setConnectionListener(EventListener);
     void listenSync();
