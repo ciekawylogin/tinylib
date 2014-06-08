@@ -7,6 +7,7 @@
 #include "encrypt/Encrypt.h"
 #include <API/ServerConnection.h>
 #include <cstring>
+#include<memory>
 
 Socket::Socket()
 {
@@ -50,7 +51,7 @@ void Socket::connect(std::string addr, int port)
 
     if(::connect(socketDescriptor,(struct sockaddr*)&name, sizeof(struct sockaddr))==-1){
         throw std::runtime_error("Nie mozna zestawic polaczenia z dana maszyna.\n");
-        cout<<errno;
+        std::cout<<errno;
     }
     isServer=false;
 
@@ -71,7 +72,7 @@ void Socket::accept(EventListener evL)
     //trzeba bedzie w watku serwera zamykac nowy socket, a w watku obslugi polaczenia socket serwera
     clientSocketDescriptor = ::accept(socketDescriptor, &clientAddress, &addrLen);
     if(clientSocketDescriptor == -1) throw std::runtime_error("accept() error.\n");
-    ServerConnection *connection = new ServerConnection(this);
+    std::shared_ptr<ServerConnection> connection(new ServerConnection(this));
     ClientConnectedEvent *event = new ClientConnectedEvent("connected", connection);
     int n;
     int keyBuf[2];

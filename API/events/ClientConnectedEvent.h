@@ -3,13 +3,14 @@
 
 #include "Event.h"
 #include "../Connection.h"
+#include<memory>
 
 class ClientConnectedEvent : public Event
 {
-    Connection *connection;
+    std::shared_ptr<Connection> connection;
 public:
-    ClientConnectedEvent(std::string, Connection *connection);
-    Connection *getConnection();
+    ClientConnectedEvent(std::string, std::shared_ptr<Connection> connection);
+    std::shared_ptr<Connection> getConnection();
 };
 
 #endif // CLIENTCONNECTEDEVENT_H

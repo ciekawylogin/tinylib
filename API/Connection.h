@@ -10,6 +10,7 @@
 #include "../threads/WritingThread.h"
 #include "../threads/ListenerCallThread.h"
 
+
 /**
  * @brief Klasa reprezentująca połączenie z innym komputerem (adresem IP)
  *
