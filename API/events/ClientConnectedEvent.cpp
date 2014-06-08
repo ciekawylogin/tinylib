@@ -1,12 +1,12 @@
 #include "ClientConnectedEvent.h"
 
-ClientConnectedEvent::ClientConnectedEvent(std::string message, Connection *connection):
+ClientConnectedEvent::ClientConnectedEvent(std::string message, std::shared_ptr<Connection> connection):
     Event(message),
-    connection(connection)
+   connection(connection)
 {
 }
 
-Connection *ClientConnectedEvent::getConnection()
+std::shared_ptr<Connection> ClientConnectedEvent::getConnection()
 {
     return connection;
 }

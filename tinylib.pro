@@ -33,7 +33,11 @@ SOURCES += \
     pipes/Pipe.cpp \
     encrypt/Encrypt.cpp \
     pipes/InputPipe.cpp \
-    pipes/OutputPipe.cpp
+    pipes/OutputPipe.cpp \
+    io/Select.cpp \
+    io/InputDescriptor.cpp \
+    io/OutputDescriptor.cpp \
+    io/Descriptor.cpp
 
 OTHER_FILES += \
     README.md
@@ -72,6 +76,10 @@ HEADERS += \
     API/ConnectionState.h \
     encrypt/Encrypt.h \
     pipes/InputPipe.h \
-    pipes/OutputPipe.h
+    pipes/OutputPipe.h \
+    io/Select.h \
+    io/InputDescriptor.h \
+    io/OutputDescriptor.h \
+    io/Descriptor.h
 
 CONFIG += c++11

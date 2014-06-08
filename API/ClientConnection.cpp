@@ -6,7 +6,7 @@ ClientConnection::ClientConnection():
 
 }
 
-void ClientConnection::connect(std::string IP, int port)
+void ClientConnection:: connect(std::string IP, int port)
 {
     socket->connect(IP, port);
     // cos jeszcze? :P
