@@ -99,8 +99,6 @@ int main()
             char buf[50];
             socket.read(buf,50);
             std::cout<<buf<<"\n";
-            //for(int i=0;i<21;i++)
-            //std::cout<<buf[i];
          });
     }
     else
@@ -110,8 +108,6 @@ int main()
         char cos[50];
         socket.read(cos, 50);
         std::cout<<cos<<"\n";
-        //for(int i=0;i<21;i++)
-        //std::cout<<cos[i];
         socket.write(cos, 21);
     }
 }

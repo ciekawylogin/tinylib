@@ -46,7 +46,7 @@ void Socket::connect(std::string addr, int port)
     name.sin_addr.s_addr = inet_addr(addr.c_str());
     name.sin_port = htons((short)port);
 
-    if(::connect(socketDescriptor,(struct sockaddr*)&name, sizeof(name))!=0)
+    if(::connect(socketDescriptor,(struct sockaddr*)&name, sizeof(name))==-1)
         throw std::runtime_error("Nie mozna zestawic polaczenia z dana maszyna.\n");
     isServer=false;
 
