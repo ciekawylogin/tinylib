@@ -1,6 +1,7 @@
 #include "Connection.h"
 
-Connection::Connection(Socket *socket)
+Connection::Connection(Socket *socket):
+    socket(socket)
 {
     writing_thread.run();
     reading_thread.run();

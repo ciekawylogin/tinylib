@@ -24,7 +24,7 @@ void wyslijDane(Connection conn)
 {
     std::string str = "Hello, world!";
     conn.writeAsync((char *)str.c_str(), str.size(),
-                    [](Event *event) // success
+    [](Event *event) // success
     {
         std::cout << "Pomyslnie wyslano dane!" << std::endl;
     },
@@ -39,7 +39,7 @@ void odbierzDane(Connection conn)
     const int max_length = 128;
     char buffer[max_length];
     conn.readAsync(buffer, max_length,
-                   [&buffer](Event *event) // success
+    [&buffer](Event *event) // success
     {
         std::cout << "Odebrano dane: " << buffer << std::endl;
     },
@@ -51,20 +51,26 @@ void odbierzDane(Connection conn)
 
 int main()
 {
-    /*
     int m;
     std::cin >> m;
 
-    char text[25];
     if(m == 0)
     {
         Server s(1234);
-        s.setConnectionListener([&text](Event *event_){
+        s.setConnectionListener([](Event *event_){
             ClientConnectedEvent *event = static_cast<ClientConnectedEvent *>(event_);
             std::cout << "polaczono" << std::endl;
 
             Connection *c = event->getConnection();
-            c->readAsync(text, 20, [](Event *){}, [](Event *){});
+            std::cout << "wskaznik = " << c << "\n";
+            char text[29];
+            c->readSync(text, 28);
+            std::cout << text << "\n";
+
+            c->readSync(text, 28);
+            std::cout << text << "\n";
+
+            c->readSync(text, 28);
             std::cout << text << "\n";
         });
         s.listenSync();
@@ -76,20 +82,20 @@ int main()
         ClientConnection c;
         c.connect("127.0.0.1", 1234);
 
-        c.writeAsync("dupa", 4, [](Event *){}, [](Event *){});
-
-        while(1){};
+        while(1)
+        {
+            c.writeAsync("dupa", 4, [](Event *){}, [](Event *){});
+        };
     }
-*/
 
-
+/*
     int a;
     std::cin >> a;
 
     if(a == 0)
     {
         Socket socket;
-        socket.setPort(1235);
+        socket.setPort(1234);
         socket.bind();
         socket.listen();
         socket.accept([&socket](Event*){
@@ -100,13 +106,13 @@ int main()
     else
     {
         Socket socket;
-        socket.connect("192.168.1.23", 1235);
+        socket.connect("127.0.0.1", 1234);
         char cos[50];
         socket.read(cos, 50);
         std::cout << cos;
         socket.write(cos, 21);
     }
-
+*/
     
     return 0;
 }

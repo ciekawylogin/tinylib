@@ -50,7 +50,7 @@ void Socket::connect(std::string addr, int port)
         throw std::runtime_error("Nie mozna zestawic polaczenia z dana maszyna.\n");
     isServer=false;
 
-    std::pair<std::pair<int,int>,std::pair<int,int>> keys = Encrypt::getAsymKeys();
+    std::pair<std::pair<int,int>,std::pair<int,int> > keys = Encrypt::getAsymKeys();
     int buf[2];
     buf[0] = keys.first.first;
     buf[1] = keys.first.second;
