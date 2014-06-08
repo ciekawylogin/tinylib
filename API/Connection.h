@@ -28,11 +28,11 @@ protected:
     ListenerCallThread listener_call_thread;
 
     /// Gniazdo, za pomocą którego wysyłamy / odbieramy
-    Socket socket;
+    Socket *socket;
 
     /// Obiekty tej klasy nie powinny być tworzone jawnie. Połączenia klienckie tworzymy
     /// za pomocą ClientConnection, zaś serwerowe są tworzone przez obiekt klasy Server.
-    Connection(Socket socket);
+    Connection(Socket *socket);
 
 	// Klasa reprezentujaca stan polaczenia
 	ConnectionState state;

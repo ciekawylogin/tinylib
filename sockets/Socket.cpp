@@ -5,6 +5,7 @@
 #include <sstream>
 #include <error.h>
 #include "encrypt/Encrypt.h"
+#include <API/ServerConnection.h>
 
 Socket::Socket()
 {
@@ -66,7 +67,8 @@ void Socket::accept(EventListener evL)
     //trzeba bedzie w watku serwera zamykac nowy socket, a w watku obslugi polaczenia socket serwera
     clientSocketDescriptor = ::accept(socketDescriptor, &clientAddress, &addrLen);
     if(clientSocketDescriptor == -1) throw std::runtime_error("accept() error.\n");
-    ClientConnectedEvent *event = new ClientConnectedEvent("connected");
+    ServerConnection *connection = new ServerConnection(this);
+    ClientConnectedEvent *event = new ClientConnectedEvent("connected", connection);
 
     int keyBuf[2];
     this->read((char*)keyBuf, 8);
@@ -93,7 +95,7 @@ void Socket::close(int sockFd)
         throw std::runtime_error("Blad podczas zamykania polaczenia.\n");
 }
 
-int Socket::write(char * buf, int nbytes)
+int Socket::write(const char * buf, int nbytes)
 {
     char cryptedBuf[nbytes];
     for(int i=0; i < nbytes; i++){

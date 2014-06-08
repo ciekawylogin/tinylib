@@ -51,6 +51,7 @@ void odbierzDane(Connection conn)
 
 int main()
 {
+    /*
     int m;
     std::cin >> m;
 
@@ -78,6 +79,32 @@ int main()
         c.writeAsync("dupa", 4, [](Event *){}, [](Event *){});
 
         while(1){};
+    }
+*/
+
+
+    int a;
+    std::cin >> a;
+
+    if(a == 0)
+    {
+        Socket socket;
+        socket.setPort(1235);
+        socket.bind();
+        socket.listen();
+        socket.accept([&socket](Event*){
+            std::cout << "przyszlo polaczenie;" << std::endl;
+            socket.write("dupa dupa gowno cycki", 21);
+        });
+    }
+    else
+    {
+        Socket socket;
+        socket.connect("192.168.1.23", 1235);
+        char cos[50];
+        socket.read(cos, 50);
+        std::cout << cos;
+        socket.write(cos, 21);
     }
 
     

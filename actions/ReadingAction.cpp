@@ -2,7 +2,7 @@
 #include <API/events/DataReadEvent.h>
 #include <API/events/ReadingErrorEvent.h>
 
-ReadingAction::ReadingAction(Socket socket, char *data, int dataSize,
+ReadingAction::ReadingAction(Socket *socket, char *data, int dataSize,
                              EventListener success, EventListener failure, ListenerCallThread listener_call_thread):
     socket(socket),
     data(data),
@@ -17,7 +17,7 @@ void ReadingAction::perform()
 {
     try
     {
-        socket.read(data, dataSize);
+        socket->read(data, dataSize);
         DataReadEvent *event = new DataReadEvent("lol i just read some data :o");
         success(event);
     }

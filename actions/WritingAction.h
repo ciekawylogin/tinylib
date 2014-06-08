@@ -8,7 +8,7 @@
 
 class WritingAction : public Action
 {
-    Socket socket;
+    Socket *socket;
     const char *data;
     int dataSize;
     EventListener success;
@@ -16,7 +16,7 @@ class WritingAction : public Action
     ListenerCallThread listener_call_thread;
 
 public:
-    WritingAction(Socket socket, const char *data, int dataSize, EventListener success, EventListener failure, ListenerCallThread listener_call_thread);
+    WritingAction(Socket *socket, const char *data, int dataSize, EventListener success, EventListener failure, ListenerCallThread listener_call_thread);
 
     void perform();
 };

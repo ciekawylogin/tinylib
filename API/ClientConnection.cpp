@@ -1,13 +1,13 @@
 #include "ClientConnection.h"
 
 ClientConnection::ClientConnection():
-    Connection(Socket())
+    Connection(new Socket())
 {
 
 }
 
 void ClientConnection::connect(std::string IP, int port)
 {
-    socket.connect(IP, port);
+    socket->connect(IP, port);
     // cos jeszcze? :P
 }

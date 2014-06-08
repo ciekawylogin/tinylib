@@ -8,7 +8,7 @@
 
 class ReadingAction : public Action
 {
-    Socket socket;
+    Socket *socket;
     char *data;
     int dataSize;
     EventListener success;
@@ -16,7 +16,7 @@ class ReadingAction : public Action
     ListenerCallThread listener_call_thread;
 
 public:
-    ReadingAction(Socket socket, char *data, int dataSize, EventListener success, EventListener failure, ListenerCallThread listener_call_thread);
+    ReadingAction(Socket *socket, char *data, int dataSize, EventListener success, EventListener failure, ListenerCallThread listener_call_thread);
 
     void perform();
 };

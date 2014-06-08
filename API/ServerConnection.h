@@ -6,7 +6,7 @@
 class ServerConnection: public Connection
 {
 public:
-    ServerConnection();
+    ServerConnection(Socket *);
 };
 
 #endif // SERVERCONNECTION_H

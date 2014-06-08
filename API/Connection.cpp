@@ -1,6 +1,6 @@
 #include "Connection.h"
 
-Connection::Connection(Socket socket)
+Connection::Connection(Socket *socket)
 {
     writing_thread.run();
     reading_thread.run();
@@ -26,13 +26,13 @@ AsyncOperation* Connection::readAsync(char *data, int dataSize, EventListener su
 
 void Connection::writeSync(const char *data, int dataSize)
 {
-    socket.write(data, dataSize);
+    socket->write(data, dataSize);
 	this->state = ConnectionState::SYNC_SENDING;
 }
 
 void Connection::readSync(char *data, int maxDataSize)
 {
-    socket.read(data, maxDataSize);
+    socket->read(data, maxDataSize);
 	this->state = ConnectionState::SYNC_RECEIVING;
 }
 
