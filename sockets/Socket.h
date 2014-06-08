@@ -9,10 +9,7 @@
 #include <arpa/inet.h>
 
 /**
- * @brief Zapewnia abstrakcję dla gniazd TCP, opakowując gniazda linuksowe bądź windowsowe.
- *
- * Implementacja metod tej klasy jest zależna od systemu, na którym jest kompilowana.
- * Interfejs jest uniwersalny.
+ * @brief Zapewnia abstrakcję dla gniazd TCP, opakowując gniazda.
  */
 class Socket
 {

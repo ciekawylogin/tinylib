@@ -49,8 +49,8 @@ void Socket::connect(std::string addr, int port)
     memset(&name.sin_zero,'\0',8);
 
     if(::connect(socketDescriptor,(struct sockaddr*)&name, sizeof(struct sockaddr))==-1){
-        throw std::runtime_error("Nie mozna zestawic polaczenia z dana maszyna.\n");
-        cout<<errno;
+        std::cout<<errno;
+        throw std::runtime_error("Nie mozna zestawic polaczenia z dana maszyna.\n"); 
     }
     isServer=false;
 

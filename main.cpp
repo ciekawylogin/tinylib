@@ -95,8 +95,7 @@ int main() //try
     else
     {
         Socket socket;
-        //socket.connect("127.0.0.1", 1234);
-        socket.connect("127.0.0.1", 1134+i);
+        socket.connect("192.168.1.106", 1134+i);
         char cos[50];
         socket.read(cos, 50);
         std::cout<<cos<<"\n";
