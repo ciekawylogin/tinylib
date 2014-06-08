@@ -1,4 +1,4 @@
-#include "encrypt.h"
+#include "Encrypt.h"
 #include <cstdlib>
 
 constexpr int Encrypt::primes[1000];

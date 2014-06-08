@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <sstream>
 #include <error.h>
+#include "encrypt/Encrypt.h"
 
 Socket::Socket()
 {
@@ -45,6 +46,16 @@ void Socket::connect(std::string addr, int port)
     if(::connect(socketDescriptor,(struct sockaddr*)&name, sizeof(name))!=0)
         throw std::runtime_error("Nie mozna zestawic polaczenia z dana maszyna.\n");
     isServer=false;
+
+    std::pair<std::pair<int,int>,std::pair<int,int>> keys = Encrypt::getKeys();
+    int buf[2];
+    buf[0] = keys.first.first;
+    buf[1] = keys.first.second;
+    int bufRecv[1] = { 0 };
+    this->write((char*)buf, 8);
+    this->read((char*)bufRecv, 4);
+    symKey = (char)Encrypt::crypt(bufRecv[0], keys.second.first, keys.second.second);
+    std::cout<<"klucz symetryczny:  "<<symKey<<std::endl;
 }
 
 void Socket::accept(EventListener evL)
