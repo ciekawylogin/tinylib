@@ -7,9 +7,9 @@
 class ListenerCallAction : public Action
 {
     EventListener listener;
-    Event *event;
+    PEvent event;
 public:
-    ListenerCallAction(EventListener, Event *);
+    ListenerCallAction(EventListener, PEvent);
     void perform();
 };
 

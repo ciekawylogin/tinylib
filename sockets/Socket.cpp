@@ -72,8 +72,8 @@ void Socket::accept(EventListener evL)
     //trzeba bedzie w watku serwera zamykac nowy socket, a w watku obslugi polaczenia socket serwera
     clientSocketDescriptor = ::accept(socketDescriptor, &clientAddress, &addrLen);
     if(clientSocketDescriptor == -1) throw std::runtime_error("accept() error.\n");
-    std::shared_ptr<ServerConnection> connection(new ServerConnection(this));
-    ClientConnectedEvent *event = new ClientConnectedEvent("connected", connection);
+    std::shared_ptr<ServerConnection> connection(new ServerConnection(PConnect(this)));
+    std::shared_ptr<ClientConnectedEvent> event (new ClientConnectedEvent("connected", connection));
     int n;
     int keyBuf[2];
     this->read((char*)keyBuf, 8);

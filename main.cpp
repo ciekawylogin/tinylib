@@ -26,11 +26,11 @@ void wyslijDane(Connection conn)
 {
     std::string str = "Hello, world!";
     conn.writeAsync((char *)str.c_str(), str.size(),
-    [](Event *event) // success
+    [](PEvent event) // success
     {
         std::cout << "Pomyslnie wyslano dane!" << std::endl;
     },
-    [](Event *event) // error
+    [](PEvent event) // error
     {
         std::cout << "Blad wysylania: "<< event->getMessage() << std::endl;
     });
@@ -41,11 +41,11 @@ void odbierzDane(Connection conn)
     const int max_length = 128;
     char buffer[max_length];
     conn.readAsync(buffer, max_length,
-    [&buffer](Event *event) // success
+    [&buffer](PEvent event) // success
     {
         std::cout << "Odebrano dane: " << buffer << std::endl;
     },
-    [](Event *event) // error
+    [](PEvent event) // error
     {
         std::cout << "Blad odbierania: "<< event->getMessage() << std::endl;
     });
@@ -84,7 +84,7 @@ int main() //try
         socket.setPort(1134+i);
         socket.bind();
         socket.listen();
-        socket.accept([&socket](Event*){
+        socket.accept([&socket](PEvent){
             std::cout << "przyszlo polaczenie;" << std::endl;
             socket.write("dupa dupa gowno cycki", 21);
             char buf[50];

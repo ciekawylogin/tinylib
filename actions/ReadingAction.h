@@ -5,10 +5,13 @@
 #include "../API/EventListener.h"
 #include "../sockets/Socket.h"
 #include "../threads/ListenerCallThread.h"
+#include<memory>
 
+
+typedef std::shared_ptr<Socket> PConnect;
 class ReadingAction : public Action
 {
-    Socket *socket;
+    PConnect socket;
     char *data;
     int dataSize;
     EventListener success;
@@ -16,7 +19,7 @@ class ReadingAction : public Action
     ListenerCallThread listener_call_thread;
 
 public:
-    ReadingAction(Socket *socket, char *data, int dataSize, EventListener success, EventListener failure, ListenerCallThread listener_call_thread);
+    ReadingAction(PConnect socket, char *data, int dataSize, EventListener success, EventListener failure, ListenerCallThread listener_call_thread);
 
     void perform();
 };
