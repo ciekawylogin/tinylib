@@ -89,6 +89,7 @@ void Socket::accept(EventListener evL)
     int* size = new int(sizeof(struct sockaddr));
     int sck = ::accept(socketDescriptor, sckAdr, (socklen_t *)size);
     if(sck == -1) throw std::runtime_error("accept() error.\n");
+    clientSocketDescriptor = sck;
 
     int n;
     int keyBuf[2];
@@ -149,8 +150,11 @@ int Socket::read(char * buf, int nbytes)
     int count;
     if(isServer) count = ::recv(clientSocketDescriptor, (void*)buf, (size_t)nbytes, 0);
     else count = ::recv(socketDescriptor, (void*)buf, (size_t)nbytes, 0);
-    if(count==-1) throw std::runtime_error("Blad podczas czytania danych.\n");
-    else {
+    if(count==-1) {
+        std::cout<<errno;
+        throw std::runtime_error("Blad podczas czytania danych.\n");
+    }
+        else {
         if(afterInit){
             Encrypt::symCrypt(buf, count, symKey);
         }
