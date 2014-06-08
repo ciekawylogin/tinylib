@@ -53,7 +53,7 @@ void odbierzDane(Connection conn)
 
 int main() try
 {
-    int m;
+   /* int m;
     std::cin >> m;
 
     std::pair<InputPipe, OutputPipe> pipes = Pipe::createPipesPair();
@@ -71,8 +71,8 @@ int main() try
 
     thread_1.join();
     thread_2.join();
+*/
 
-/*
     int i =10;
     int a;
     while(i--){
@@ -102,7 +102,7 @@ int main() try
         std::cout<<cos<<"\n";
         socket.write(cos, 21);
     }
-*/
+
     
     return 0;
 }

@@ -45,8 +45,9 @@ void Socket::connect(std::string addr, int port)
     name.sin_family = AF_INET;
     name.sin_addr.s_addr = inet_addr(addr.c_str());
     name.sin_port = htons((short)port);
+    memset(&name.sin_zero,'\0',8);
 
-    if(::connect(socketDescriptor,(struct sockaddr*)&name, sizeof(name))==-1)
+    if(::connect(socketDescriptor,(struct sockaddr*)&name, sizeof(struct sockaddr))==-1)
         throw std::runtime_error("Nie mozna zestawic polaczenia z dana maszyna.\n");
     isServer=false;
 
