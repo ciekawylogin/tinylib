@@ -82,31 +82,38 @@ int main()
     }
 */
 
-
+    int i =10;
     int a;
+    while(i--){
     std::cin >> a;
 
     if(a == 0)
     {
         Socket socket;
-        socket.setPort(1235);
+        socket.setPort(1134+i);
         socket.bind();
         socket.listen();
         socket.accept([&socket](Event*){
             std::cout << "przyszlo polaczenie;" << std::endl;
             socket.write("dupa dupa gowno cycki", 21);
-        });
+            char buf[50];
+            socket.read(buf,50);
+
+            for(int i=0;i<21;i++)
+            std::cout<<buf[i];
+         });
     }
     else
     {
         Socket socket;
-        socket.connect("192.168.1.23", 1235);
+        socket.connect("127.0.0.1", 1134+i);
         char cos[50];
         socket.read(cos, 50);
-        std::cout << cos;
+        for(int i=0;i<21;i++)
+        std::cout<<cos[i];
         socket.write(cos, 21);
     }
-
+}
     
     return 0;
 }

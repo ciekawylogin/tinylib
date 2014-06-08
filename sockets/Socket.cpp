@@ -57,8 +57,8 @@ void Socket::connect(std::string addr, int port)
     int bufRecv[1] = { 0 };
     this->write((char*)buf, 8);
     this->read((char*)bufRecv, 4);
-    symKey = (char)Encrypt::asymCrypt(bufRecv[0], keys.second.first, keys.second.second);
-    std::cout<<"klucz symetryczny(klient):  "<<symKey<<std::endl;
+    int oldKey = Encrypt::asymCrypt(bufRecv[0], keys.second.first, keys.second.second);
+    symKey = (char)oldKey;
     afterInit = true;
 }
 
@@ -69,14 +69,15 @@ void Socket::accept(EventListener evL)
     if(clientSocketDescriptor == -1) throw std::runtime_error("accept() error.\n");
     ServerConnection *connection = new ServerConnection(this);
     ClientConnectedEvent *event = new ClientConnectedEvent("connected", connection);
-
+    int n;
     int keyBuf[2];
     this->read((char*)keyBuf, 8);
     do{
-        symKey = rand() % 256;
-    }while(!symKey);
-    std::cout<<"klucz symetryczny(serwer):  "<<symKey<<std::endl;
-    int sendKey[1] = { Encrypt::asymCrypt((int)symKey, keyBuf[0], keyBuf[1]) };
+        srand(time(NULL));
+        n = rand() % 128;
+    }while(!n);
+    symKey = (char)n;
+    int sendKey[1] = { Encrypt::asymCrypt(n, keyBuf[0], keyBuf[1]) };
     this->write((char*)sendKey, 4);
     afterInit = true;
     evL(event);     //w tym evencie bedzie funkcja do odpalenia nowego watku?
