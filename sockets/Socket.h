@@ -35,7 +35,8 @@ private:
     struct sockaddr clientAddress;
     unsigned int addrLen;
     bool isServer;
-    char symKey = 0;
+    char symKey;
+    bool afterInit;
 };
 
 #endif // SOCKET_H
