@@ -2,7 +2,10 @@
 
 Connection::Connection(Socket socket)
 {
-	this->state = ConnectionState::CREATED;
+    writing_thread.run();
+    reading_thread.run();
+    listener_call_thread.run();
+    state = ConnectionState::CREATED;
 }
 
 AsyncOperation Connection::writeAsync(char *data, int dataSize, EventListener success, EventListener failure)
@@ -17,9 +20,4 @@ AsyncOperation Connection::readAsync(char *data, int dataSize, EventListener suc
     ReadingAction action(socket, data, dataSize, success, failure, listener_call_thread);
     reading_thread.add(action);
     return AsyncOperation(action);
-}
-
-ConnectionState Connection::getState()
-{
-	return this->state;
 }
