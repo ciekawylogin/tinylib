@@ -7,7 +7,7 @@ class Encrypt
 {
 public:
     Encrypt();
-    static std::pair<std::pair<int,int>,std::pair<int,int>> getAsymKeys();
+    static std::pair<std::pair<int,int>,std::pair<int,int> > getAsymKeys();
     static int asymCrypt(int,int,int);
     static void symCrypt(char *, int, char);
 private:

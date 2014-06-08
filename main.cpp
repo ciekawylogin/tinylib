@@ -23,7 +23,7 @@
 #include "API/events/ClientConnectedEvent.h"
 #include "pipes/OutputPipe.h"
 #include "pipes/InputPipe.h"
-
+/*
 void wyslijDane(Connection conn)
 {
     std::string str = "Hello, world!";
@@ -50,29 +50,32 @@ void odbierzDane(Connection conn)
     [](PEvent event) // error
     {
         std::cout << "Blad odbierania: "<< event->getMessage() << std::endl;
-    });
+    });  
 }
+*/
 
 int main() //try
 {
     std::cout << "Wybierz tryb dzialania programu (0 = serwer, 1 = klient):" << "\n";
     int a;
     std::cin >> a;
+    char tab[50];
     if(a == 0)
     {
-        Server server(1239);
-        server.setConnectionListener([](PEvent event_)
+
+        Server server(1234);
+        server.setConnectionListener([&tab](PEvent event_)
         {
             std::shared_ptr<ClientConnectedEvent> event = std::dynamic_pointer_cast<ClientConnectedEvent>(event_);
             std::cout << "Podlaczyl sie klient" << "\n";
             std::shared_ptr<Connection> connection = event->getConnection();
             for(int i=0;i<10;++i)
             {
-                char tab[50];
-                connection->readAsync(tab, 50, [tab](PEvent event)
+                connection->readAsync(tab, 50, [&tab](PEvent event)
                 { // success
                     std::cout << "odebrano dane" << "\n";
-                }, [](PEvent event)
+                    std::cout << tab << "\n";
+                },  [](PEvent event)
                 { // failure
                     std::cout << "blad: " << event->getMessage() << "\n";
                 });
@@ -91,7 +94,7 @@ int main() //try
     {
 
         ClientConnection client;
-        client.connect("192.168.1.23", 1241);
+        client.connect("192.168.1.23", 1234);
         std::cout << "polaczono z klientem, kliknij enter aby wyslac wiadomosc" << "\n";
         while(1)
         {

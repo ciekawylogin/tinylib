@@ -7,7 +7,8 @@
 #include "encrypt/Encrypt.h"
 #include <API/ServerConnection.h>
 #include <cstring>
-#include<memory>
+#include <memory>
+#include <sockets/Socket.h>
 
 Socket::Socket()
 {
@@ -80,7 +81,7 @@ void Socket::connect(std::string addr, int port)
     afterInit = true;
 }
 
-void Socket::accept(EventListener evL)
+void Socket::accept(EventListener evL, Server *server)
 {
     //trzeba bedzie w watku serwera zamykac nowy socket, a w watku obslugi polaczenia socket serwera
 
@@ -103,10 +104,11 @@ void Socket::accept(EventListener evL)
     this->write((char*)sendKey, 4);
     afterInit = true;
 
-    PConnect s = PConnect(new Socket(sck,socketDescriptor,port,sckAdr,size, key));
+    Psocket s = Psocket(new Socket(sck,socketDescriptor,port,sckAdr,size, key));
 
     std::shared_ptr<ServerConnection> connection(new ServerConnection(s));
     std::shared_ptr<ClientConnectedEvent> event (new ClientConnectedEvent("connected", connection));
+    server->registerConnection(connection);
     evL(event);     //w tym evencie bedzie funkcja do odpalenia nowego watku?
 }
 

@@ -2,21 +2,24 @@
 #define SERVER_H
 
 #include "EventListener.h"
-#include <sockets/Socket.h>
 #include <thread>
 #include <vector>
 #include "IP.h"
 #include <string>
 #include "../API/SecurityPolicy.h"
 
+class ServerConnection; //forward
+class Socket; //forward
+
 class Server
 {
     EventListener listener;
-    Socket socket;
+    std::shared_ptr<Socket> socket;
     std::vector<IP> blackList;
     std::vector<IP> whiteList;
 	SecurityPolicy policy;
 
+    std::vector<std::shared_ptr<ServerConnection> > connections;
 
 public:
     Server(int port);
@@ -31,7 +34,7 @@ public:
     /**
      * @brief addToBlackList
      * @param ip
-     * Funckja dodaje adres IP do czarnej listy, na ktorej znajduje sie lista niezaufanych adresóœ IP.
+     * Funckja dodaje adres IP do czarnej listy, na ktorej znajduje sie lista niezaufanych adresow IP.
      */
     void addToBlackList(std::string ip);
     /**
@@ -56,6 +59,11 @@ public:
     void setConnectionListener(EventListener);
     void listenSync();
     void listenAsync();
+
+    void registerConnection(std::shared_ptr<ServerConnection> connection)
+    {
+        connections.push_back(connection);
+    }
 
 };
 
