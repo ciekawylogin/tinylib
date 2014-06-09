@@ -27,6 +27,7 @@ public:
     void close();
     void close(int);
 private:
+    Server * server;
     int socketDescriptor;
     int clientSocketDescriptor;
     int port;

@@ -107,6 +107,7 @@ public:
     ConnectionState getState();
 
     friend class Server;
+    friend class Socket;
 
 };
 

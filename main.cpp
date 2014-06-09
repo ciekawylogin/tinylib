@@ -99,7 +99,7 @@ int main() //try
         {
             std::string str;
             std::cin >> str;
-            client.writeSync("Hello, world!", 13);
+            client.writeSync(str.c_str(), str.length());
         }
     }
     else

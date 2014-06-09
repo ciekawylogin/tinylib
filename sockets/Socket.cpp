@@ -84,7 +84,7 @@ void Socket::connect(std::string addr, int port)
 void Socket::accept(EventListener evL, Server *server)
 {
     //trzeba bedzie w watku serwera zamykac nowy socket, a w watku obslugi polaczenia socket serwera
-
+    this->server=server;
     struct sockaddr *sckAdr = new struct sockaddr;
     memset(sckAdr,0,sizeof(struct sockaddr));
     int* size = new int(sizeof(struct sockaddr));
@@ -157,6 +157,22 @@ int Socket::read(char * buf, int nbytes)
         throw std::runtime_error("Blad podczas czytania danych.\n");
     }
     else if(count == 0){
+
+        if(isServer){
+            close(clientSocketDescriptor);
+            std::vector<std::shared_ptr<ServerConnection>> * vecPtr = server->getConnections();
+            for(int i=0; i<vecPtr->size();i++)
+            {
+                if(((static_cast<Connection>(*((*vecPtr)[i])))).socket.get()==this){
+                    std::cout<<"USUWAM CONNECTION";
+                    delete (*vecPtr)[i].get();
+                }
+            }
+        }
+        else{
+            close(socketDescriptor);
+        }
+
         throw std::runtime_error("koniec polaczenia\n");
     }
         else {
