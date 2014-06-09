@@ -96,7 +96,6 @@ int main() //try
 
         ClientConnection client;
         client.connect("192.168.1.23", 1243);
-        std::cout << "polaczono z klientem, kliknij enter aby wyslac wiadomosc" << "\n";
         for(int i=0;i<10;++i)
         {
             client.readAsync(tab, 50, [&tab](PEvent event)
