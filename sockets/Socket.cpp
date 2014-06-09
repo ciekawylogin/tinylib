@@ -156,6 +156,9 @@ int Socket::read(char * buf, int nbytes)
         std::cout<<errno;
         throw std::runtime_error("Blad podczas czytania danych.\n");
     }
+    else if(count == 0){
+        throw std::runtime_error("koniec polaczenia\n");
+    }
         else {
         if(afterInit){
             Encrypt::symCrypt(buf, count, symKey);

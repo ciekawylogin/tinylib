@@ -93,7 +93,7 @@ int main() //try
     {
 
         ClientConnection client;
-        client.connect("127.0.0.1", 1235);
+        client.connect("192.168.1.23", 1235);
         std::cout << "polaczono z klientem, kliknij enter aby wyslac wiadomosc" << "\n";
         while(1)
         {
