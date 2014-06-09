@@ -20,7 +20,7 @@ Socket::Socket()
     if(socketDescriptor==-1) throw std::runtime_error("Nie można utworzyc gniazda.\n");
 }
 
-Socket::Socket(int clientSocket, int thisSocket, int port, struct sockaddr *sckadr, int *strLen, char key)
+Socket::Socket(int clientSocket, int thisSocket, int port, struct sockaddr_in *sckadr, int *strLen, char key)
 {
     isServer = true;
     afterInit = true;
@@ -79,16 +79,21 @@ void Socket::connect(std::string addr, int port)
     int oldKey = Encrypt::asymCrypt(bufRecv[0], keys.second.first, keys.second.second);
     symKey = (char)oldKey;
     afterInit = true;
+    char text[10];
+    read(text,10);
+    if(text[0]=='D'){
+        throw std::runtime_error("Serwer odmowil polaczenia. Nie akceptuje polaczen z Twojego adresu.\n");
+    }
 }
 
 void Socket::accept(EventListener evL, Server *server)
 {
     //trzeba bedzie w watku serwera zamykac nowy socket, a w watku obslugi polaczenia socket serwera
     this->server=server;
-    struct sockaddr *sckAdr = new struct sockaddr;
-    memset(sckAdr,0,sizeof(struct sockaddr));
-    int* size = new int(sizeof(struct sockaddr));
-    int sck = ::accept(socketDescriptor, sckAdr, (socklen_t *)size);
+    struct sockaddr_in *sckAdr = new struct sockaddr_in;
+    memset(sckAdr,0,sizeof(struct sockaddr_in));
+    int* size = new int(sizeof(struct sockaddr_in));
+    int sck = ::accept(socketDescriptor, (struct sockaddr*)sckAdr, (socklen_t *)size);
     if(sck == -1) throw std::runtime_error("accept() error.\n");
     clientSocketDescriptor = sck;
 
@@ -104,14 +109,21 @@ void Socket::accept(EventListener evL, Server *server)
     this->write((char*)sendKey, 4);
     afterInit = true;
 
-    Psocket s = Psocket(new Socket(sck,socketDescriptor,port,sckAdr,size, key));
-
-    std::shared_ptr<ServerConnection> connection(new ServerConnection(s));
-    std::shared_ptr<ClientConnectedEvent> event (new ClientConnectedEvent("connected", connection));
-    server->registerConnection(connection);
-    evL(event);
+    if(server->canConnect(std::string(inet_ntoa(sckAdr->sin_addr)))){
+        write("ACCEPT",6);
+        Psocket s = Psocket(new Socket(sck,socketDescriptor,port,sckAdr,size, key));
+        std::shared_ptr<ServerConnection> connection(new ServerConnection(s));
+        std::shared_ptr<ClientConnectedEvent> event (new ClientConnectedEvent("connected", connection));
+        server->registerConnection(connection);
+        evL(event);
+    }
+    else{
+         write("DENY", 4);
+         close(sck);
+         delete sckAdr;
+         delete size;
+    }
 }
-
 void Socket::close()
 {
     if(isServer) close(clientSocketDescriptor);
