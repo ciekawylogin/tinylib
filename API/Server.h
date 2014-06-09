@@ -55,7 +55,7 @@ public:
 	* @param policy
 	*/
 	void setSecurityPolicy(SecurityPolicy policy);
-
+    bool canConnect(std::string);
     void setConnectionListener(EventListener);
     void listenSync();
     void listenAsync();

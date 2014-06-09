@@ -6,6 +6,7 @@
 Server::Server(int port):
     socket(new Socket())
 {
+    policy = SecurityPolicy::ACCEPT_ALL_EXCEPT_LISTED;
     socket->setPort(port);
     socket->bind();
     socket->listen();
@@ -16,6 +17,13 @@ void Server::setConnectionListener(EventListener listener)
     this->listener = listener;
 }
 
+bool Server::canConnect(std::string ip)
+{
+    if(policy == SecurityPolicy::ACCEPT_ALL_EXCEPT_LISTED)
+        return !checkBlackList(ip);
+    else
+        return checkWhiteList(ip);
+}
 void Server::listenSync()
 {
     while(true)

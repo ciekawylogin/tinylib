@@ -20,7 +20,7 @@ Socket::Socket()
     if(socketDescriptor==-1) throw std::runtime_error("Nie można utworzyc gniazda.\n");
 }
 
-Socket::Socket(int clientSocket, int thisSocket, int port, struct sockaddr *sckadr, int *strLen, char key)
+Socket::Socket(int clientSocket, int thisSocket, int port, struct sockaddr_in *sckadr, int *strLen, char key)
 {
     isServer = true;
     afterInit = true;
@@ -79,16 +79,21 @@ void Socket::connect(std::string addr, int port)
     int oldKey = Encrypt::asymCrypt(bufRecv[0], keys.second.first, keys.second.second);
     symKey = (char)oldKey;
     afterInit = true;
+    char text[10];
+    read(text,10);
+    if(text[0]=='D'){
+        throw std::runtime_error("Serwer odmowil polaczenia. Nie akceptuje polaczen z Twojego adresu.\n");
+    }
 }
 
 void Socket::accept(EventListener evL, Server *server)
 {
     //trzeba bedzie w watku serwera zamykac nowy socket, a w watku obslugi polaczenia socket serwera
     this->server=server;
-    struct sockaddr *sckAdr = new struct sockaddr;
-    memset(sckAdr,0,sizeof(struct sockaddr));
-    int* size = new int(sizeof(struct sockaddr));
-    int sck = ::accept(socketDescriptor, sckAdr, (socklen_t *)size);
+    struct sockaddr_in *sckAdr = new struct sockaddr_in;
+    memset(sckAdr,0,sizeof(struct sockaddr_in));
+    int* size = new int(sizeof(struct sockaddr_in));
+    int sck = ::accept(socketDescriptor, (struct sockaddr*)sckAdr, (socklen_t *)size);
     if(sck == -1) throw std::runtime_error("accept() error.\n");
     clientSocketDescriptor = sck;
 
@@ -104,14 +109,21 @@ void Socket::accept(EventListener evL, Server *server)
     this->write((char*)sendKey, 4);
     afterInit = true;
 
-    Psocket s = Psocket(new Socket(sck,socketDescriptor,port,sckAdr,size, key));
-
-    std::shared_ptr<ServerConnection> connection(new ServerConnection(s));
-    std::shared_ptr<ClientConnectedEvent> event (new ClientConnectedEvent("connected", connection));
-    server->registerConnection(connection);
-    evL(event);     //w tym evencie bedzie funkcja do odpalenia nowego watku?
+    if(server->canConnect(std::string(inet_ntoa(sckAdr->sin_addr)))){
+        write("ACCEPT",6);
+        Psocket s = Psocket(new Socket(sck,socketDescriptor,port,sckAdr,size, key));
+        std::shared_ptr<ServerConnection> connection(new ServerConnection(s));
+        std::shared_ptr<ClientConnectedEvent> event (new ClientConnectedEvent("connected", connection));
+        server->registerConnection(connection);
+        evL(event);
+    }
+    else{
+         write("DENY", 4);
+         close(sck);
+         delete sckAdr;
+         delete size;
+    }
 }
-
 void Socket::close()
 {
     if(isServer) close(clientSocketDescriptor);
@@ -158,26 +170,16 @@ int Socket::read(char * buf, int nbytes)
     }
     else if(count == 0){
 
-        std::cout << "dupa1 << \n";
         if(isServer){
-            std::cout << "dupa2 << \n";
             close(clientSocketDescriptor);
-            std::cout << "dupa3 << \n";
-            std::vector<std::shared_ptr<ServerConnection>> * vecPtr = server->getConnections();
-            std::cout << "dupa4 " << vecPtr << " " << ((unsigned long long)nullptr) << "\n";
-            if(vecPtr == nullptr)
-            {
-                std::cout << "dupa8 << \n";
-            }
-            for(int i=0; i<vecPtr->size();i++)
-            {
-                std::cout << "dupa5 << \n";
-                if(((static_cast<Connection>(*((*vecPtr)[i])))).socket.get()==this){
-                    std::cout<<"USUWAM CONNECTION";
-                    delete (*vecPtr)[i].get();
-                }
-            }
-            std::cout << "dupa6 " << vecPtr << "" << "\n";
+//            std::vector<std::shared_ptr<ServerConnection>> * vecPtr = server->getConnections();
+//            for(int i=0; i<vecPtr->size();i++)
+//            {
+//                if(((static_cast<Connection>(*((*vecPtr)[i])))).socket.get()==this){
+//                    std::cout<<"USUWAM CONNECTION";
+//                    delete (*vecPtr)[i].get();
+//                }
+//            }
         }
         else{
             close(socketDescriptor);

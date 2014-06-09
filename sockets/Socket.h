@@ -16,7 +16,7 @@ class Socket
 {
 public:
     Socket();
-    Socket(int,int,int,struct sockaddr*,int*,char);
+    Socket(int, int, int, sockaddr_in *, int*, char);
     void bind();
     void listen();
     int read(char *, int);
@@ -31,7 +31,7 @@ private:
     int socketDescriptor;
     int clientSocketDescriptor;
     int port;
-    struct sockaddr clientAddress;
+    struct sockaddr_in clientAddress;
     unsigned int addrLen;
     bool isServer;
     char symKey;
