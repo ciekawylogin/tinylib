@@ -106,6 +106,8 @@ public:
 	*/
     ConnectionState getState();
 
+    Socket getSocket();
+
     friend class Server;
     friend class Socket;
 

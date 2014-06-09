@@ -41,3 +41,8 @@ ConnectionState Connection::getState()
 {
 	return this->state;
 }
+
+Socket Connection::getSocket()
+{
+    return *socket;
+}
