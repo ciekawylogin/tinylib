@@ -23,7 +23,7 @@ void ReadingAction::perform()
     }
     catch (std::runtime_error error)
     {
-        std::shared_ptr<ReadingErrorEvent> event (new ReadingErrorEvent("Socket error while reading data"));
+        std::shared_ptr<ReadingErrorEvent> event (new ReadingErrorEvent(std::string("Socket error while reading data: ") + error.what()));
         failure(event);
     }
 }
