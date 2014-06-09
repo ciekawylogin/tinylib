@@ -59,6 +59,7 @@ public:
     void setConnectionListener(EventListener);
     void listenSync();
     void listenAsync();
+    std::shared_ptr<ServerConnection> listenForOneClient();
 
     void registerConnection(std::shared_ptr<ServerConnection> connection)
     {

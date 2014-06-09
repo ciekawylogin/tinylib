@@ -63,6 +63,16 @@ int main() //try
     if(a == 0)
     {
         Server server(1239);
+
+        /*
+         * uproszczona wersja:
+
+        char tab[50];
+        Server server(1243);
+        server.listenForOneClient()->readSync(tab, 40);
+        std::cout << tab << "\n";
+         */
+
         server.setConnectionListener([&tab](PEvent event_)
         {
             std::shared_ptr<ClientConnectedEvent> event = std::dynamic_pointer_cast<ClientConnectedEvent>(event_);

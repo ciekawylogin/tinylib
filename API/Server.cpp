@@ -80,3 +80,13 @@ void Server::setSecurityPolicy(SecurityPolicy policy)
 {
 	this->policy = policy;
 }
+
+std::shared_ptr<ServerConnection> Server::listenForOneClient()
+{
+    if(listener == nullptr || listener == NULL)
+    {
+        listener = [](PEvent){};
+    }
+    socket->accept(listener, this);
+    return connections.back();
+}
