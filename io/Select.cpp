@@ -21,7 +21,7 @@ void Select::addOutputDescriptor(OutputDescriptor &descriptor)
     maxfd = std::max(maxfd, descriptor.getUnixDescriptor());
 }
 
-Descriptor*Select::operator()()
+Descriptor *Select::operator()()
 {
     return descriptors.at(::select(maxfd + 1, &readfds, &writefds, &exceptfds, (struct timeval*) 0));
 }

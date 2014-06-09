@@ -65,7 +65,7 @@ public:
         connections.push_back(connection);
     }
 
-    std::vector<std::shared_ptr<ServerConnection>> * getConnections()
+    std::vector<std::shared_ptr<ServerConnection> > * getConnections()
     {
         return &connections;
     }
