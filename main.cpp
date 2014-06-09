@@ -62,7 +62,7 @@ int main() //try
     char tab[50];
     if(a == 0)
     {
-        Server server(1237);
+        Server server(1239);
         server.setConnectionListener([&tab](PEvent event_)
         {
             std::shared_ptr<ClientConnectedEvent> event = std::dynamic_pointer_cast<ClientConnectedEvent>(event_);
@@ -93,7 +93,7 @@ int main() //try
     {
 
         ClientConnection client;
-        client.connect("192.168.1.23", 1237);
+        client.connect("192.168.1.23", 1239);
         std::cout << "polaczono z klientem, kliknij enter aby wyslac wiadomosc" << "\n";
         while(1)
         {

@@ -158,16 +158,26 @@ int Socket::read(char * buf, int nbytes)
     }
     else if(count == 0){
 
+        std::cout << "dupa1 << \n";
         if(isServer){
+            std::cout << "dupa2 << \n";
             close(clientSocketDescriptor);
+            std::cout << "dupa3 << \n";
             std::vector<std::shared_ptr<ServerConnection>> * vecPtr = server->getConnections();
+            std::cout << "dupa4 " << vecPtr << " " << ((unsigned long long)nullptr) << "\n";
+            if(vecPtr == nullptr)
+            {
+                std::cout << "dupa8 << \n";
+            }
             for(int i=0; i<vecPtr->size();i++)
             {
+                std::cout << "dupa5 << \n";
                 if(((static_cast<Connection>(*((*vecPtr)[i])))).socket.get()==this){
                     std::cout<<"USUWAM CONNECTION";
                     delete (*vecPtr)[i].get();
                 }
             }
+            std::cout << "dupa6 " << vecPtr << "" << "\n";
         }
         else{
             close(socketDescriptor);
