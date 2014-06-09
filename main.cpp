@@ -62,7 +62,6 @@ int main() //try
     char tab[50];
     if(a == 0)
     {
-
         Server server(1237);
         server.setConnectionListener([&tab](PEvent event_)
         {

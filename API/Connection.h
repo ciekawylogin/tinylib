@@ -106,15 +106,6 @@ public:
 	*/
     ConnectionState getState();
 
-    /**
-     * Desktuktor
-     */
-    virtual ~Connection ()
-    {
-        std::cout << "zakonczono polaczenie" ;
-        socket->write("this is the end\n", 16);
-    }
-
     friend class Server;
     friend class Socket;
 
