@@ -1,12 +1,14 @@
 #include "Server.h"
 #include "../API/SecurityPolicy.h"
+#include "../sockets/Socket.h"
+
 
 Server::Server(int port):
-    socket(Socket())
+    socket(new Socket())
 {
-    socket.setPort(port);
-    socket.bind();
-    socket.listen();
+    socket->setPort(port);
+    socket->bind();
+    socket->listen();
 }
 
 void Server::setConnectionListener(EventListener listener)
@@ -18,7 +20,7 @@ void Server::listenSync()
 {
     while(true)
     {
-        socket.accept(listener);
+        socket->accept(listener, this);
     }
 }
 

@@ -1,6 +1,6 @@
 #include "ServerConnection.h"
 
-ServerConnection::ServerConnection(PConnect socket):
+ServerConnection::ServerConnection(Psocket socket):
     Connection(socket)
 {
 }

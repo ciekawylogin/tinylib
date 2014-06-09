@@ -1,6 +1,6 @@
 #include "Connection.h"
 
-Connection::Connection(PConnect socket):
+Connection::Connection(Psocket socket):
     socket(socket)
 {
     writing_thread.run();

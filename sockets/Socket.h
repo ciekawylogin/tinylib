@@ -7,13 +7,13 @@
 #include <netdb.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include "../API/Server.h"
 
 /**
  * @brief Zapewnia abstrakcję dla gniazd TCP, opakowując gniazda.
  */
 class Socket
 {
-
 public:
     Socket();
     Socket(int,int,int,struct sockaddr*,int*,char);
@@ -22,7 +22,7 @@ public:
     int read(char *, int);
     int write(const char *, int);
     void connect(std::string, int);
-    void accept(EventListener);
+    void accept(EventListener, Server *server);
     void setPort(int);
     void close();
     void close(int);
@@ -36,5 +36,7 @@ private:
     char symKey;
     bool afterInit;
 };
+
+typedef std::shared_ptr<Socket> Psocket;
 
 #endif // SOCKET_H

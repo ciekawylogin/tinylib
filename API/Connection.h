@@ -3,13 +3,15 @@
 
 #include "EventListener.h"
 #include "AsyncOperation.h"
-#include "../sockets/Socket.h"
 #include "../API/ConnectionState.h"
 #include <thread>
 #include "../threads/ReadingThread.h"
 #include "../threads/WritingThread.h"
 #include "../threads/ListenerCallThread.h"
-#include<memory>
+#include <memory>
+
+class Socket;
+typedef std::shared_ptr<Socket> Psocket;
 
 /**
  * @brief Klasa reprezentująca połączenie z innym komputerem (adresem IP)
@@ -17,7 +19,6 @@
  * Posiada powiązany wątek oraz gniazdo TCP, którymi zarządza.
  */
 
-typedef std::shared_ptr<Socket> PConnect;
 class Connection
 {
 protected:
@@ -31,11 +32,11 @@ protected:
     ListenerCallThread listener_call_thread;
 
     /// Gniazdo, za pomocą którego wysyłamy / odbieramy
-    PConnect socket;
+    Psocket socket;
 
     /// Obiekty tej klasy nie powinny być tworzone jawnie. Połączenia klienckie tworzymy
     /// za pomocą ClientConnection, zaś serwerowe są tworzone przez obiekt klasy Server.
-    Connection(PConnect socket);
+    Connection(Psocket socket);
 
 	// Klasa reprezentujaca stan polaczenia
 	ConnectionState state;
@@ -105,7 +106,17 @@ public:
 	*/
     ConnectionState getState();
 
+    /**
+     * Desktuktor
+     */
+    ~Connection ()
+    {
+        std::cout << "zakonczono polaczenie" ;
+        socket->write("this is the end\n", 16);
+    }
+
     friend class Server;
+
 };
 
 #endif // CONNECTION_H
