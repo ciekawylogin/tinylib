@@ -5,7 +5,6 @@ SOURCES += \
     API/ServerConnection.cpp \
     API/Server.cpp \
     API/AsyncOperation.cpp \
-    API/Port.cpp \
     API/IP.cpp \
     API/events/Event.cpp \
     API/events/SuccessEvent.cpp \
@@ -45,7 +44,6 @@ HEADERS += \
     API/ServerConnection.h \
     API/Server.h \
     API/AsyncOperation.h \
-    API/Port.h \
     API/IP.h \
     API/events/Event.h \
     API/events/SuccessEvent.h \

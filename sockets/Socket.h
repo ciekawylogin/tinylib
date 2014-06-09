@@ -26,6 +26,7 @@ public:
     void setPort(int);
     void close();
     void close(int);
+    int getSocket();
 private:
     Server * server;
     int socketDescriptor;

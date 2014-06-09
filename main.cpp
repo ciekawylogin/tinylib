@@ -8,7 +8,6 @@
 #include "API/AsyncOperation.h"
 
 #include "API/Server.h"
-#include "API/Port.h"
 #include "API/IP.h"
 
 #include "API/events/DataWroteEvent.h"
@@ -93,7 +92,7 @@ int main() //try
     {
 
         ClientConnection client;
-        client.connect("192.168.1.23", 1241);
+        client.connect("192.168.1.23", 1243);
         std::cout << "polaczono z klientem, kliknij enter aby wyslac wiadomosc" << "\n";
         while(1)
         {
