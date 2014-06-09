@@ -61,7 +61,7 @@ int main() //try
     char tab[50];
     if(a == 0)
     {
-        Server server(1251);
+        Server server(1252);
         server.setSecurityPolicy(ACCEPT_ONLY_LISTED);
         /*
          * uproszczona wersja:
@@ -95,7 +95,7 @@ int main() //try
     {
 
         ClientConnection client;
-        client.connect("127.0.0.1", 1251);
+        client.connect("192.168.1.23", 1256);
         for(int i=0;i<10;++i)
         {
             client.readAsync(tab, 50, [&tab](PEvent event)
