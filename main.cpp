@@ -61,8 +61,8 @@ int main() //try
     char tab[50];
     if(a == 0)
     {
-        Server server(1243);
-
+        Server server(1251);
+        server.setSecurityPolicy(ACCEPT_ONLY_LISTED);
         /*
          * uproszczona wersja:
 
@@ -95,8 +95,7 @@ int main() //try
     {
 
         ClientConnection client;
-        client.connect("192.168.1.23", 1243);
-        std::cout << "polaczono z klientem, kliknij enter aby wyslac wiadomosc" << "\n";
+        client.connect("127.0.0.1", 1251);
         for(int i=0;i<10;++i)
         {
             client.readAsync(tab, 50, [&tab](PEvent event)
