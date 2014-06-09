@@ -109,7 +109,7 @@ public:
     /**
      * Desktuktor
      */
-    ~Connection ()
+    virtual ~Connection ()
     {
         std::cout << "zakonczono polaczenie" ;
         socket->write("this is the end\n", 16);
