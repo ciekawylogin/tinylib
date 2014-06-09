@@ -23,7 +23,7 @@ Socket::Socket()
 Socket::Socket(int clientSocket, int thisSocket, int port, struct sockaddr_in *sckadr, int *strLen, char key)
 {
     isServer = true;
-    afterInit = true;
+    afterInit = false;
     clientAddress = *sckadr;
     addrLen = *strLen;
     this->port = port;
@@ -69,6 +69,13 @@ void Socket::connect(std::string addr, int port)
     }
     isServer=false;
 
+    char text[10];
+    this->read(text,10);
+    std::cout<<text;
+    if(text[0]=='D'){
+        throw std::runtime_error("Serwer odmowil polaczenia. Nie akceptuje polaczen z Twojego adresu.\n");
+    }
+
     std::pair<std::pair<int,int>,std::pair<int,int> > keys = Encrypt::getAsymKeys();
     int buf[2];
     buf[0] = keys.first.first;
@@ -79,11 +86,7 @@ void Socket::connect(std::string addr, int port)
     int oldKey = Encrypt::asymCrypt(bufRecv[0], keys.second.first, keys.second.second);
     symKey = (char)oldKey;
     afterInit = true;
-    char text[10];
-    read(text,10);
-    if(text[0]=='D'){
-        throw std::runtime_error("Serwer odmowil polaczenia. Nie akceptuje polaczen z Twojego adresu.\n");
-    }
+
 }
 
 void Socket::accept(EventListener evL, Server *server)
@@ -97,20 +100,21 @@ void Socket::accept(EventListener evL, Server *server)
     if(sck == -1) throw std::runtime_error("accept() error.\n");
     clientSocketDescriptor = sck;
 
-    int n;
-    int keyBuf[2];
-    this->read((char*)keyBuf, 8);
-    do{
-        srand(time(NULL));
-        n = rand() % 128;
-    }while(!n);
-    int key = (char)n;
-    int sendKey[1] = { Encrypt::asymCrypt(n, keyBuf[0], keyBuf[1]) };
-    this->write((char*)sendKey, 4);
-    afterInit = true;
-
     if(server->canConnect(std::string(inet_ntoa(sckAdr->sin_addr)))){
-        write("ACCEPT",6);
+        this->write("ACCEPT",6);
+
+        int n;
+        int keyBuf[2];
+        this->read((char*)keyBuf, 8);
+        do{
+            srand(time(NULL));
+            n = rand() % 128;
+        }while(!n);
+        int key = (char)n;
+        int sendKey[1] = { Encrypt::asymCrypt(n, keyBuf[0], keyBuf[1]) };
+        this->write((char*)sendKey, 4);
+        afterInit = true;
+
         Psocket s = Psocket(new Socket(sck,socketDescriptor,port,sckAdr,size, key));
         std::shared_ptr<ServerConnection> connection(new ServerConnection(s));
         std::shared_ptr<ClientConnectedEvent> event (new ClientConnectedEvent("connected", connection));
@@ -118,7 +122,7 @@ void Socket::accept(EventListener evL, Server *server)
         evL(event);
     }
     else{
-         write("DENY", 4);
+         this->write("DENY", 4);
          close(sck);
          delete sckAdr;
          delete size;
@@ -187,11 +191,11 @@ int Socket::read(char * buf, int nbytes)
 
         throw std::runtime_error("koniec polaczenia\n");
     }
-        else {
+   else {
         if(afterInit){
             Encrypt::symCrypt(buf, count, symKey);
-        }
-        return count;
+    }
+   return count;
     }
 }
 
