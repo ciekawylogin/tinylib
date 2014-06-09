@@ -61,7 +61,7 @@ int main() //try
     char tab[50];
     if(a == 0)
     {
-        Server server(1239);
+        Server server(1243);
 
         /*
          * uproszczona wersja:
@@ -77,24 +77,17 @@ int main() //try
             std::shared_ptr<ClientConnectedEvent> event = std::dynamic_pointer_cast<ClientConnectedEvent>(event_);
             std::cout << "Podlaczyl sie klient" << "\n";
             std::shared_ptr<Connection> connection = event->getConnection();
-            for(int i=0;i<10;++i)
+            for(int i=0;;++i)
             {
-                connection->readAsync(tab, 50, [&tab](PEvent event)
-                { // success
-                    std::cout << "odebrano dane" << "\n";
-                    std::cout << tab << "\n";
-                },  [](PEvent event)
-                { // failure
-                    std::cout << "blad: " << event->getMessage() << "\n";
-                });
-                std::cout << "zawolalem readAsync(), stan = " << connection->getState()  << "\n";
+                std::string str;
+                std::cin >> str;
+                connection->writeSync(str.c_str(), str.length());
             }
         });
         server.listenAsync();
         int i=0;
         while(1)
         {
-            std::cout << "Dzialam w glownym watku " << i++ << "\n";
             sleep(1);
         }
     }
@@ -104,11 +97,23 @@ int main() //try
         ClientConnection client;
         client.connect("192.168.1.23", 1243);
         std::cout << "polaczono z klientem, kliknij enter aby wyslac wiadomosc" << "\n";
+        for(int i=0;i<10;++i)
+        {
+            client.readAsync(tab, 50, [&tab](PEvent event)
+            { // success
+                std::cout << "odebrano dane" << "\n";
+                std::cout << tab << "\n";
+            },  [](PEvent event)
+            { // failure
+                std::cout << "blad: " << event->getMessage() << "\n";
+            });
+            std::cout << "zawolalem readAsync(), stan = " << client.getState()  << "\n";
+        }
+        int i=0;
         while(1)
         {
-            std::string str;
-            std::cin >> str;
-            client.writeSync(str.c_str(), str.length());
+            std::cout << "Dzialam w glownym watku " << i++ << "\n";
+            sleep(1);
         }
     }
     else
