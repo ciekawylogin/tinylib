@@ -18,7 +18,7 @@ void ReadingAction::perform()
     try
     {
         socket->read(data, dataSize);
-        std::shared_ptr<DataReadEvent> event (new DataReadEvent("lol i just read some data :o"));
+        std::shared_ptr<DataReadEvent> event (new DataReadEvent("Data read."));
         success(event);
     }
     catch (std::runtime_error error)

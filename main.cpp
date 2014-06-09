@@ -75,7 +75,7 @@ int main()
     else if(a == 1)
     {
         ClientConnection client;
-        client.connect("192.168.1.23", 1252);
+        client.connect("192.168.1.23", 1254);
         for(int i=0;;++i)
         {
             std::string str;
