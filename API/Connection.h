@@ -116,6 +116,7 @@ public:
     }
 
     friend class Server;
+    friend class Socket;
 
 };
 
