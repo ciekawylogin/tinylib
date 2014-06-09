@@ -109,7 +109,7 @@ void Socket::accept(EventListener evL, Server *server)
     std::shared_ptr<ServerConnection> connection(new ServerConnection(s));
     std::shared_ptr<ClientConnectedEvent> event (new ClientConnectedEvent("connected", connection));
     server->registerConnection(connection);
-    evL(event);     //w tym evencie bedzie funkcja do odpalenia nowego watku?
+    evL(event);
 }
 
 void Socket::close()
@@ -160,14 +160,14 @@ int Socket::read(char * buf, int nbytes)
 
         if(isServer){
             close(clientSocketDescriptor);
-            std::vector<std::shared_ptr<ServerConnection>> * vecPtr = server->getConnections();
-            for(int i=0; i<vecPtr->size();i++)
-            {
-                if(((static_cast<Connection>(*((*vecPtr)[i])))).socket.get()==this){
-                    std::cout<<"USUWAM CONNECTION";
-                    delete (*vecPtr)[i].get();
-                }
-            }
+//            std::vector<std::shared_ptr<ServerConnection>> * vecPtr = server->getConnections();
+//            for(int i=0; i<vecPtr->size();i++)
+//            {
+//                if(((static_cast<Connection>(*((*vecPtr)[i])))).socket.get()==this){
+//                    std::cout<<"USUWAM CONNECTION";
+//                    delete (*vecPtr)[i].get();
+//                }
+//            }
         }
         else{
             close(socketDescriptor);

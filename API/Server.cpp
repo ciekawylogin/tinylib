@@ -6,6 +6,7 @@
 Server::Server(int port):
     socket(new Socket())
 {
+    policy = SecurityPolicy::ACCEPT_ALL_EXCEPT_LISTED;
     socket->setPort(port);
     socket->bind();
     socket->listen();

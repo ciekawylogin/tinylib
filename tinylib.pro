@@ -77,6 +77,7 @@ HEADERS += \
     io/Select.h \
     io/InputDescriptor.h \
     io/OutputDescriptor.h \
-    io/Descriptor.h
+    io/Descriptor.h \
+    API/SecurityPolicy.h
 
 CONFIG += c++11
